@@ -948,16 +948,24 @@ button {
     background: linear-gradient(135deg, var(--green-pale), var(--white));
 }
 
-.credential-icon {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
+.credential-logo-wrap {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
     display: grid;
     place-items: center;
-    border-radius: 12px;
-    color: #273425;
-    background: var(--green-light);
-    font-weight: 900;
+    padding: 7px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.credential-logo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
 }
 
 .credential-card h3 {
