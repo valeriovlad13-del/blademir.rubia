@@ -704,6 +704,12 @@ button {
 
 .timeline-logo-mhi {
     color: #8d1d2c;
+    padding: 8px;
+    border: 1px solid rgba(144, 178, 124, 0.38);
+    background: #ffffff;
+    box-shadow:
+        inset 0 0 0 7px var(--green-pale),
+        var(--shadow-sm);
 }
 
 .timeline-logo-sutherland {
