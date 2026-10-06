@@ -166,6 +166,13 @@ button {
     transform: scaleX(1);
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
 .menu-toggle {
     display: none;
     width: 40px;
@@ -1466,12 +1473,13 @@ footer {
         flex-basis: 38px;
     }
 
-    .theme-toggle {
-        order: 2;
+    .nav-actions {
+        gap: 8px;
     }
 
+    .theme-toggle,
     .menu-toggle {
-        order: 3;
+        order: initial;
     }
     .hero-inner,
     .content-section,
