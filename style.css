@@ -307,6 +307,11 @@ button {
     color: transparent;
 }
 
+.hero h1 .hero-name-line {
+    background: none;
+    color: var(--ink);
+}
+
 .hero h2 {
     margin-top: 25px;
     color: var(--muted);
