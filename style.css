@@ -1465,6 +1465,14 @@ footer {
         height: 38px;
         flex-basis: 38px;
     }
+
+    .theme-toggle {
+        order: 2;
+    }
+
+    .menu-toggle {
+        order: 3;
+    }
     .hero-inner,
     .content-section,
     .nav-inner,
