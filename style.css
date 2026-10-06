@@ -711,7 +711,7 @@ button {
 }
 
 .timeline-logo-sutherland .institution-logo {
-    transform: scale(1);
+    transform: scale(1.1);
 }
 
 .timeline-logo-maselco {
@@ -1045,7 +1045,7 @@ button {
 
 .license-column .credential-logo,
 .credential-column:not(.license-column) .credential-logo {
-    transform: scale(1.1);
+    transform: scale(1.21);
 }
 
 .credential-card h3 {
