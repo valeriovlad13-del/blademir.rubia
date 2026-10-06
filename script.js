@@ -37,6 +37,11 @@ function setTheme(isDark) {
         console.warn("Unable to save theme preference.", error);
     }
 
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+        themeColor.setAttribute("content", isDark ? "#0e130f" : "#90b27c");
+    }
+
     renderThemeIcon(isDark);
 }
 
