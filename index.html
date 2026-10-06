@@ -10,6 +10,15 @@
         content="Professional portfolio of Engr. Blademir Pagayunan Rubia — Electrical Engineer and Computer Science professional."
     >
     <meta name="author" content="Engr. Blademir Pagayunan Rubia">
+    <meta name="theme-color" content="#90b27c">
+    <link rel="canonical" href="https://engineerxcscience-portfolio.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Engr. Blademir Pagayunan Rubia | Electrical Engineer & Computer Science">
+    <meta property="og:description" content="Professional portfolio of Engr. Blademir Pagayunan Rubia — Electrical Engineer and Computer Science professional.">
+    <meta property="og:url" content="https://engineerxcscience-portfolio.vercel.app/">
+    <meta property="og:image" content="https://engineerxcscience-portfolio.vercel.app/images/blademir.jpg">
+
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
     <title>Engr. Blademir Pagayunan Rubia | Electrical Engineer & Computer Science</title>
 
@@ -25,7 +34,7 @@
                 <span class="brand-name">Blademir Rubia</span>
             </a>
 
-            <div class="nav-links">
+            <div class="nav-links" id="primary-navigation">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#experience">Experience</a>
@@ -33,6 +42,20 @@
                 <a href="#education">Education</a>
                 <a href="#contact">Contact</a>
             </div>
+
+            <button
+                type="button"
+                id="menu-toggle"
+                class="menu-toggle"
+                aria-expanded="false"
+                aria-controls="primary-navigation"
+                aria-label="Open navigation menu"
+                title="Open navigation menu"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
 
             <button
                 type="button"
@@ -99,7 +122,7 @@
                     <div class="photo-orbit orbit-two"></div>
 
                     <div class="profile-photo">
-                        <img src="images/blademir.jpg" alt="Portrait of Engr. Blademir Pagayunan Rubia">
+                        <img src="images/blademir.jpg" width="640" height="640" decoding="async" alt="Portrait of Engr. Blademir Pagayunan Rubia">
                     </div>
 
                     <div class="identity-card identity-engineering">
@@ -195,7 +218,7 @@
                 <article class="skill-card skill-green">
                     <div class="skill-card-top">
                         <span class="skill-index">01</span>
-                        <span class="skill-symbol">⚡</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13.2 2.5 5.8 13h5.5l-1 8.5L18.2 11h-5.5l.5-8.5Z"></path></svg></span>
                     </div>
                     <h3>Electrical Engineering</h3>
                     <div class="skill-list">
@@ -210,7 +233,7 @@
                 <article class="skill-card skill-purple">
                     <div class="skill-card-top">
                         <span class="skill-index">02</span>
-                        <span class="skill-symbol">⌘</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5a4 4 0 1 0 0 8h6a4 4 0 1 0 0-8H9Zm0 2h6a2 2 0 1 1 0 4H9a2 2 0 1 1 0-4ZM5 11v4a4 4 0 1 0 4 4h2v-2H9a2 2 0 1 1-2-2v-4H5Zm14 0v4a2 2 0 1 1-2 2h-2v2h2a4 4 0 1 0 4-4v-4h-2Z"></path></svg></span>
                     </div>
                     <h3>Computer Science & Software</h3>
                     <div class="skill-list">
@@ -228,7 +251,7 @@
                 <article class="skill-card skill-mix">
                     <div class="skill-card-top">
                         <span class="skill-index">03</span>
-                        <span class="skill-symbol">▦</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg></span>
                     </div>
                     <h3>Data & Analytics</h3>
                     <div class="skill-list">
@@ -248,7 +271,7 @@
                 <article class="skill-card skill-green">
                     <div class="skill-card-top">
                         <span class="skill-index">04</span>
-                        <span class="skill-symbol">◈</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 8 9-8 9-8-9 8-9Zm0 3.1L6.7 12 12 17.9l5.3-5.9L12 6.1Z"></path></svg></span>
                     </div>
                     <h3>Embedded Systems & Automation</h3>
                     <div class="skill-list">
@@ -269,7 +292,7 @@
                 <article class="skill-card skill-purple">
                     <div class="skill-card-top">
                         <span class="skill-index">05</span>
-                        <span class="skill-symbol">▤</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4Zm2 3v2h10V7H7Zm0 4v2h10v-2H7Zm0 4v2h7v-2H7Z"></path></svg></span>
                     </div>
                     <h3>Engineering & Productivity Tools</h3>
                     <div class="skill-list">
@@ -284,7 +307,7 @@
                 <article class="skill-card skill-mix">
                     <div class="skill-card-top">
                         <span class="skill-index">06</span>
-                        <span class="skill-symbol">+</span>
+                        <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"></path></svg></span>
                     </div>
                     <h3>Professional Skills</h3>
                     <div class="skill-list">
@@ -312,7 +335,7 @@
             <div class="timeline">
 
                 <article class="timeline-item current">
-                    <div class="timeline-marker timeline-logo timeline-logo-mhi"><img class="institution-logo institution-logo-mhi" src="images/logos/mhi-power.jpg" alt="MHI Power logo"></div>
+                    <div class="timeline-marker timeline-logo timeline-logo-mhi"><img class="institution-logo institution-logo-mhi" src="images/logos/mhi-power.jpg" alt="MHI Power logo" loading="lazy" decoding="async"></div>
                     <div class="timeline-content">
                         <div class="timeline-meta">
                             <span>Aug 2026 – Present</span>
@@ -339,7 +362,7 @@
                             class="institution-logo"
                             src="images/logos/sutherland.jpg"
                             alt="Sutherland Global Services logo"
-                        >
+                         loading="lazy" decoding="async">
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-meta">
@@ -367,7 +390,7 @@
                             class="institution-logo"
                             src="images/logos/maselco.jpg"
                             alt="MASELCO logo"
-                        >
+                         loading="lazy" decoding="async">
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-meta">
@@ -493,7 +516,7 @@
                                 class="institution-logo"
                                 src="images/logos/debesmscat.jpg"
                                 alt="DEBESMSCAT school logo"
-                            >
+                             loading="lazy" decoding="async">
                         </span>
                         <div>
                             <span class="education-year">2025</span>
@@ -512,7 +535,7 @@
                                 class="institution-logo"
                                 src="images/logos/uopeople.jpg"
                                 alt="University of the People official logo"
-                            >
+                             loading="lazy" decoding="async">
                         </span>
                         <div>
                             <span class="education-year">2026</span>
@@ -531,7 +554,7 @@
                                 class="institution-logo"
                                 src="images/logos/uopeople.jpg"
                                 alt="University of the People official logo"
-                            >
+                             loading="lazy" decoding="async">
                         </span>
                         <div>
                             <span class="education-year">2027</span>
@@ -564,7 +587,7 @@
                                 class="credential-logo"
                                 src="images/logos/prc.jpg"
                                 alt="Professional Regulation Commission seal"
-                            >
+                             loading="lazy" decoding="async">
                         </span>
                         <div>
                             <h3>Registered Electrical Engineer (REE)</h3>
@@ -581,7 +604,7 @@
                                 class="credential-logo"
                                 src="images/logos/csc.jpg"
                                 alt="Civil Service Commission logo"
-                            >
+                             loading="lazy" decoding="async">
                         </span>
                         <div>
                             <h3>Career Service Examination (PPT) — Professional Level Passer</h3>
@@ -598,7 +621,7 @@
                 <div class="certificate-grid">
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/tesda.jpg" alt="Technical Education and Skills Development Authority seal">
+                            <img class="certificate-logo" src="images/logos/tesda.jpg" alt="Technical Education and Skills Development Authority seal" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Electrical Installation and Maintenance NC II</strong>
@@ -607,7 +630,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/serendipity.jpg" alt="Serendipity Multi-Purpose Cooperative logo">
+                            <img class="certificate-logo" src="images/logos/serendipity.jpg" alt="Serendipity Multi-Purpose Cooperative logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Basic Occupational Safety and Health for SO2</strong>
@@ -616,7 +639,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/datacamp.jpg" alt="DataCamp logo">
+                            <img class="certificate-logo" src="images/logos/datacamp.jpg" alt="DataCamp logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Associate Data Analyst</strong>
@@ -625,7 +648,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo">
+                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Google Project Management Professional Certificate</strong>
@@ -634,7 +657,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo">
+                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Google IT Support Professional Certificate</strong>
@@ -643,7 +666,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo">
+                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Google Data Analytics Professional Certificate</strong>
@@ -652,7 +675,7 @@
                     </article>
                     <article class="certificate-card">
                         <span class="certificate-logo-wrap">
-                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo">
+                            <img class="certificate-logo" src="images/logos/google.jpg" alt="Google logo" loading="lazy" decoding="async">
                         </span>
                         <div class="certificate-info">
                             <strong>Google Cybersecurity Professional Certificate</strong>
