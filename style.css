@@ -456,6 +456,13 @@ button {
     font-size: 1rem;
 }
 
+.card-icon-svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    fill: currentColor;
+}
+
 .identity-engineering {
     top: 18%;
     left: 0;
