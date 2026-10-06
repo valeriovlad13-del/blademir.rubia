@@ -29,6 +29,7 @@ function renderThemeIcon(isDark) {
 
 function setTheme(isDark) {
     document.body.classList.toggle("dark-mode", isDark);
+    document.documentElement.toggleAttribute("data-theme", isDark);
 
     try {
         localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
@@ -73,7 +74,12 @@ if (menuToggle && primaryNavigation) {
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
-            setMenu(false);
+            const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+            if (isOpen) {
+                setMenu(false);
+                menuToggle.focus();
+            }
         }
     });
 

@@ -22,6 +22,16 @@
 
     <title>Engr. Blademir Pagayunan Rubia | Electrical Engineer & Computer Science</title>
 
+    <script>
+        try {
+            if (localStorage.getItem("blademirPortfolioTheme") === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        } catch (error) {
+            // Ignore storage access errors and use the default theme.
+        }
+    </script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -106,7 +116,7 @@
                         <a class="btn btn-outline" href="#contact">Let's Connect</a>
                     </div>
 
-                    <div class="hero-links" aria-label="Professional links">
+                    <nav class="hero-links" aria-label="Professional links">
                         <a href="https://github.com/valeriovlad13-del" target="_blank" rel="noopener noreferrer">
                             GitHub
                         </a>
@@ -116,7 +126,7 @@
                         <a href="mailto:princerubia13@gmail.com">
                             Email
                         </a>
-                    </div>
+                    </nav>
                 </div>
 
                 <div class="hero-visual">
