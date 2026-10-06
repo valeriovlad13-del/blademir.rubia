@@ -166,6 +166,28 @@ button {
     transform: scaleX(1);
 }
 
+.menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--ink);
+    background: var(--surface);
+    cursor: pointer;
+}
+
+.menu-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
 .theme-toggle {
     width: 40px;
     height: 40px;
@@ -607,6 +629,13 @@ button {
     place-items: center;
     border-radius: 11px;
     font-weight: 800;
+}
+
+.skill-symbol svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    fill: currentColor;
 }
 
 .skill-green .skill-symbol {
@@ -1245,6 +1274,10 @@ footer {
         gap: 14px;
     }
 
+    .hero-copy {
+        min-width: 0;
+    }
+
     .hero-inner {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -1292,10 +1325,53 @@ footer {
 
 @media (max-width: 760px) {
     .nav-inner {
+        position: relative;
         min-height: 64px;
     }
 
+    .menu-toggle {
+        display: grid;
+    }
+
     .nav-links {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px;
+        border: 1px solid var(--border);
+        border-top: 0;
+        border-radius: 0 0 18px 18px;
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+    }
+
+    .nav-links.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .nav-links a {
+        padding: 12px 14px;
+        border-radius: 10px;
+    }
+
+    .nav-links a:hover {
+        background: var(--surface);
+    }
+
+    .nav-links a::after {
         display: none;
     }
 
@@ -1345,6 +1421,14 @@ footer {
         left: 2%;
     }
 
+    .hero-copy h2 {
+        font-size: clamp(1.05rem, 4vw, 1.35rem);
+    }
+
+    .hero-description {
+        max-width: 62ch;
+    }
+
     .identity-computing {
         right: 2%;
     }
@@ -1365,6 +1449,23 @@ footer {
 }
 
 @media (max-width: 520px) {
+    .nav-inner {
+        gap: 10px;
+    }
+
+    .brand-name {
+        max-width: 145px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .menu-toggle,
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+    }
     .hero-inner,
     .content-section,
     .nav-inner,
@@ -1444,7 +1545,29 @@ footer {
     }
 
     .timeline-item {
+        grid-template-columns: 34px minmax(0, 1fr);
         gap: 16px;
+    }
+
+    .timeline-logo {
+        width: 46px;
+        height: 46px;
+        margin-left: -6px;
+        padding: 3px;
+    }
+
+    .timeline-logo-sutherland .institution-logo {
+        transform: scale(1.15);
+    }
+
+    .timeline-content {
+        min-width: 0;
+    }
+
+    .timeline-content h3,
+    .timeline-content h4,
+    .timeline-content p {
+        overflow-wrap: anywhere;
     }
 
     .timeline::before {
@@ -1454,6 +1577,11 @@ footer {
     .timeline-marker {
         width: 34px;
         height: 34px;
+    }
+
+    .timeline-logo {
+        width: 42px;
+        height: 42px;
     }
 
     .contact-links {
@@ -1467,6 +1595,12 @@ footer {
     }
 }
 
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -1476,5 +1610,6 @@ footer {
     *::before,
     *::after {
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
