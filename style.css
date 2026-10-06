@@ -51,7 +51,7 @@ body {
     transition: background var(--transition), color var(--transition);
 }
 
-body.dark-mode {
+:is(body.dark-mode, html[data-theme="dark"]) {
     --ink: #edf2ed;
     --muted: #b6c0b8;
     --white: #18201b;
@@ -92,7 +92,7 @@ button {
     backdrop-filter: blur(18px);
 }
 
-.dark-mode .site-nav {
+:is(body.dark-mode, html[data-theme="dark"]) .site-nav {
     background: rgba(14, 19, 15, 0.88);
 }
 
@@ -259,8 +259,8 @@ button {
     letter-spacing: 0.16em;
 }
 
-.dark-mode .eyebrow,
-.dark-mode .section-label {
+:is(body.dark-mode, html[data-theme="dark"]) .eyebrow,
+:is(body.dark-mode, html[data-theme="dark"]) .section-label {
     color: var(--green-light);
 }
 
@@ -272,7 +272,7 @@ button {
     letter-spacing: 0.09em;
 }
 
-.dark-mode .eyebrow {
+:is(body.dark-mode, html[data-theme="dark"]) .eyebrow {
     background: rgba(144, 178, 124, 0.10);
 }
 
@@ -458,7 +458,7 @@ button {
     backdrop-filter: blur(12px);
 }
 
-.dark-mode .identity-card {
+:is(body.dark-mode, html[data-theme="dark"]) .identity-card {
     background: rgba(24, 32, 27, 0.88);
 }
 
@@ -575,7 +575,7 @@ button {
     border-top: 1px solid rgba(31, 37, 34, 0.10);
 }
 
-.dark-mode .focus-row {
+:is(body.dark-mode, html[data-theme="dark"]) .focus-row {
     border-color: rgba(237, 242, 237, 0.10);
 }
 
@@ -1578,8 +1578,8 @@ footer {
     }
 
     .timeline-logo {
-        width: 46px;
-        height: 46px;
+        width: 42px;
+        height: 42px;
         margin-left: -6px;
         padding: 3px;
     }
@@ -1605,11 +1605,6 @@ footer {
     .timeline-marker {
         width: 34px;
         height: 34px;
-    }
-
-    .timeline-logo {
-        width: 42px;
-        height: 42px;
     }
 
     .contact-links {
