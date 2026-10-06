@@ -2,493 +2,628 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
-        content="Personal portfolio of Blademir P. Rubia, Electrical Engineer, Computer Science Student, and Data Analyst."
+        content="Professional portfolio of Engr. Blademir Pagayunan Rubia — Electrical Engineer and Computer Science professional."
     >
+    <meta name="author" content="Engr. Blademir Pagayunan Rubia">
 
-    <title>
-        Blademir P. Rubia | Electrical Engineer & Computer Science Student
-    </title>
+    <title>Engr. Blademir Pagayunan Rubia | Electrical Engineer & Computer Science</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+    <nav class="site-nav" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a class="brand" href="#home" aria-label="Blademir Rubia home">
+                <span class="brand-mark">BR</span>
+                <span class="brand-name">Blademir Rubia</span>
+            </a>
 
-    <!-- =========================
-         HERO SECTION
-         ========================= -->
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#contact">Contact</a>
+            </div>
 
-    <header>
-
-        <div class="profile-photo">
-            <img
-                src="images/blademir.jpg"
-                alt="Blademir P. Rubia"
+            <button
+                type="button"
+                id="theme-toggle"
+                class="theme-toggle"
+                aria-label="Switch to dark mode"
+                title="Switch to dark mode"
             >
+                <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
         </div>
+    </nav>
+
+
+    <main id="home">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-inner">
+
+                <div class="hero-copy">
+                    <span class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Electrical Engineering + Computing
+                    </span>
+
+                    <p class="hero-kicker">Hello, I'm</p>
+
+                    <h1>
+                        Engr. Blademir<br>
+                        <span>Pagayunan Rubia</span>
+                    </h1>
+
+                    <h2>Electrical Engineer <span>|</span> Computer Science</h2>
+
+                    <p class="hero-description">
+                        An Electrical Engineer with a background in power generation,
+                        engineering technology, software development, data analysis,
+                        embedded systems, and automation.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects">View My Work</a>
+                        <a class="btn btn-outline" href="#contact">Let's Connect</a>
+                    </div>
+
+                    <div class="hero-links" aria-label="Professional links">
+                        <a href="https://github.com/valeriovlad13-del" target="_blank" rel="noopener noreferrer">
+                            GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/blademir-rubia-12305426a/" target="_blank" rel="noopener noreferrer">
+                            LinkedIn
+                        </a>
+                        <a href="mailto:princerubia13@gmail.com">
+                            Email
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="photo-orbit orbit-one"></div>
+                    <div class="photo-orbit orbit-two"></div>
+
+                    <div class="profile-photo">
+                        <img src="images/blademir.jpg" alt="Portrait of Engr. Blademir Pagayunan Rubia">
+                    </div>
+
+                    <div class="identity-card identity-engineering">
+                        <span class="card-icon">⚡</span>
+                        <div>
+                            <strong>Electrical Engineering</strong>
+                            <small>Power & Technology</small>
+                        </div>
+                    </div>
+
+                    <div class="identity-card identity-computing">
+                        <span class="card-icon">⌘</span>
+                        <div>
+                            <strong>Computer Science</strong>
+                            <small>Software & Data</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ABOUT -->
+        <section id="about" class="content-section about-section">
+            <div class="section-heading">
+                <span class="section-label">ABOUT ME</span>
+                <h2>Engineering meets computing.</h2>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-main">
+                    <p class="lead">
+                        I am an Electrical Engineer with professional experience in
+                        power generation and a background in Computer Science. My work
+                        and projects bring together engineering, software, data,
+                        embedded systems, and automation.
+                    </p>
+
+                    <p>
+                        I enjoy building practical solutions that connect physical
+                        systems with computing. From control logic and field work to
+                        engineering calculators, energy monitoring, and data dashboards,
+                        I approach technical problems with both engineering and
+                        computational thinking.
+                    </p>
+
+                    <p>
+                        My professional interests include power generation, electrical
+                        technology, software development, data analysis, embedded
+                        systems, IoT, automation, and engineering applications of
+                        computing.
+                    </p>
+                </div>
+
+                <div class="focus-card">
+                    <span class="section-label">PROFESSIONAL FOCUS</span>
+                    <h3>Building practical technology solutions.</h3>
+
+                    <div class="focus-row">
+                        <span class="focus-number">01</span>
+                        <div>
+                            <strong>Electrical Engineering</strong>
+                            <p>Power generation, testing, installation, maintenance, and engineering analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="focus-row">
+                        <span class="focus-number">02</span>
+                        <div>
+                            <strong>Computer Science</strong>
+                            <p>Programming, software development, data, embedded systems, and web applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SKILLS -->
+        <section id="skills" class="content-section">
+            <div class="section-heading">
+                <span class="section-label">SKILLS</span>
+                <h2>What I work with.</h2>
+            </div>
+
+            <div class="skills-grid">
+
+                <article class="skill-card skill-green">
+                    <div class="skill-card-top">
+                        <span class="skill-index">01</span>
+                        <span class="skill-symbol">⚡</span>
+                    </div>
+                    <h3>Electrical Engineering</h3>
+                    <div class="skill-list">
+                        <span>Electrical Engineering</span>
+                        <span>Power Generation</span>
+                        <span>Electrical Testing</span>
+                        <span>Electrical Installation & Maintenance</span>
+                        <span>Engineering Data Analysis</span>
+                    </div>
+                </article>
+
+                <article class="skill-card skill-purple">
+                    <div class="skill-card-top">
+                        <span class="skill-index">02</span>
+                        <span class="skill-symbol">⌘</span>
+                    </div>
+                    <h3>Computer Science & Software</h3>
+                    <div class="skill-list">
+                        <span>Python</span>
+                        <span>C++</span>
+                        <span>JavaScript</span>
+                        <span>Web Development</span>
+                        <span>Object-Oriented Programming</span>
+                        <span>Responsive Web Design</span>
+                        <span>Git & GitHub</span>
+                        <span>Visual Studio Code</span>
+                    </div>
+                </article>
+
+                <article class="skill-card skill-mix">
+                    <div class="skill-card-top">
+                        <span class="skill-index">03</span>
+                        <span class="skill-symbol">▦</span>
+                    </div>
+                    <h3>Data & Analytics</h3>
+                    <div class="skill-list">
+                        <span>Data Analysis</span>
+                        <span>Data Cleaning & Preparation</span>
+                        <span>Exploratory Data Analysis</span>
+                        <span>Data Visualization</span>
+                        <span>Dashboard Development</span>
+                        <span>Microsoft Excel</span>
+                        <span>Pandas</span>
+                        <span>NumPy</span>
+                        <span>Matplotlib</span>
+                        <span>Streamlit</span>
+                    </div>
+                </article>
+
+                <article class="skill-card skill-green">
+                    <div class="skill-card-top">
+                        <span class="skill-index">04</span>
+                        <span class="skill-symbol">◈</span>
+                    </div>
+                    <h3>Embedded Systems & Automation</h3>
+                    <div class="skill-list">
+                        <span>Embedded Systems</span>
+                        <span>Microcontroller Programming</span>
+                        <span>Internet of Things (IoT)</span>
+                        <span>Hardware-Software Integration</span>
+                        <span>Energy Monitoring</span>
+                        <span>Automation</span>
+                        <span>Instrumentation & Control</span>
+                        <span>System Monitoring</span>
+                        <span>Troubleshooting</span>
+                        <span>ESP32</span>
+                        <span>Arduino</span>
+                    </div>
+                </article>
+
+                <article class="skill-card skill-purple">
+                    <div class="skill-card-top">
+                        <span class="skill-index">05</span>
+                        <span class="skill-symbol">▤</span>
+                    </div>
+                    <h3>Engineering & Productivity Tools</h3>
+                    <div class="skill-list">
+                        <span>AutoCAD</span>
+                        <span>MATLAB</span>
+                        <span>Microsoft Office</span>
+                        <span>Technical Documentation</span>
+                        <span>Engineering Documentation</span>
+                    </div>
+                </article>
+
+                <article class="skill-card skill-mix">
+                    <div class="skill-card-top">
+                        <span class="skill-index">06</span>
+                        <span class="skill-symbol">+</span>
+                    </div>
+                    <h3>Professional Skills</h3>
+                    <div class="skill-list">
+                        <span>Problem Solving</span>
+                        <span>Analytical Thinking</span>
+                        <span>Technical Communication</span>
+                        <span>Project Management</span>
+                        <span>Project Coordination</span>
+                        <span>Technical Support</span>
+                        <span>Research</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="content-section">
+            <div class="section-heading">
+                <span class="section-label">EXPERIENCE</span>
+                <h2>Professional experience.</h2>
+            </div>
+
+            <div class="timeline">
+
+                <article class="timeline-item current">
+                    <div class="timeline-marker">01</div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span>Aug 2026 – Present</span>
+                            <span class="current-label">Current</span>
+                        </div>
+                        <h3>Junior Design Engineer</h3>
+                        <h4>MHI Power Technical Services Corporation</h4>
+                        <p>
+                            Design control logic systems for gas turbine applications,
+                            conduct site inspections, and perform loop checking and
+                            related field activities.
+                        </p>
+                        <div class="tag-row">
+                            <span>Netmation</span>
+                            <span>Intergraph</span>
+                            <span>Microsoft Office</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="timeline-item">
+                    <div class="timeline-marker">02</div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span>Jul 2025 – Aug 2026</span>
+                        </div>
+                        <h3>Customer Service Representative</h3>
+                        <h4>Sutherland Global Services Philippines</h4>
+                        <p>
+                            Provided customer service, technical support, sales, and
+                            account management while working with customer relationship
+                            management systems and office productivity tools.
+                        </p>
+                        <div class="tag-row">
+                            <span>CRM</span>
+                            <span>Microsoft Office</span>
+                            <span>Technical Support</span>
+                            <span>Account Management</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="timeline-item">
+                    <div class="timeline-marker">03</div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span>Jun – Jul 2024</span>
+                        </div>
+                        <h3>Substation Technician Intern</h3>
+                        <h4>Masbate Electric Cooperative (MASELCO)</h4>
+                        <p>
+                            Assisted with load monitoring, technical documentation,
+                            and maintenance checks at Uson Substation.
+                        </p>
+                        <div class="tag-row">
+                            <span>AutoCAD</span>
+                            <span>Microsoft Office</span>
+                            <span>Load Monitoring</span>
+                            <span>Technical Documentation</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- PROJECTS -->
+        <section id="projects" class="content-section projects-section">
+            <div class="section-heading">
+                <span class="section-label">SELECTED PROJECTS</span>
+                <h2>Engineering, computing, and practical solutions.</h2>
+            </div>
+
+            <div class="projects-grid">
+
+                <article class="project-card project-green">
+                    <div class="project-number">01</div>
+                    <div class="project-category">Electrical Engineering • Embedded Systems • IoT</div>
+                    <h3>Smart Energy Meter</h3>
+                    <p>
+                        An IoT-based energy monitoring system built using an ESP32
+                        microcontroller and PZEM-004T sensor, with local display
+                        and remote monitoring capabilities.
+                    </p>
+                    <div class="tag-row">
+                        <span>ESP32</span>
+                        <span>PZEM-004T</span>
+                        <span>IoT</span>
+                        <span>Blynk</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR" target="_blank" rel="noopener noreferrer">
+                            Research Publication ↗
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card project-purple">
+                    <div class="project-number">02</div>
+                    <div class="project-category">Electrical Engineering • JavaScript • Web Development</div>
+                    <h3>Electrical Engineering Calculator</h3>
+                    <p>
+                        A browser-based collection of practical electrical engineering
+                        calculators covering circuits, power, energy, transformers,
+                        voltage drop, unit conversion, and power triangle analysis.
+                    </p>
+                    <div class="tag-row">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Engineering Calculations</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://electrical-engineering-calculator-rho.vercel.app/" target="_blank" rel="noopener noreferrer">
+                            Live Demo ↗
+                        </a>
+                        <a href="https://github.com/valeriovlad13-del/electrical-engineering-calculator" target="_blank" rel="noopener noreferrer">
+                            GitHub ↗
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card project-mix">
+                    <div class="project-number">03</div>
+                    <div class="project-category">Energy • Data Analysis • Data Visualization</div>
+                    <h3>MASELCO Energy Data Analysis Dashboard</h3>
+                    <p>
+                        An interactive dashboard for exploring and visualizing MASELCO
+                        energy data, demonstrating data preparation, analysis,
+                        visualization, and engineering-focused insights.
+                    </p>
+                    <div class="tag-row">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>Streamlit</span>
+                        <span>Data Visualization</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://maselco-energy-dashboard.streamlit.app/" target="_blank" rel="noopener noreferrer">
+                            Live Dashboard ↗
+                        </a>
+                        <a href="https://github.com/valeriovlad13-del/maselco-energy-dashboard" target="_blank" rel="noopener noreferrer">
+                            GitHub ↗
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- EDUCATION -->
+        <section id="education" class="content-section">
+            <div class="section-heading">
+                <span class="section-label">EDUCATION</span>
+                <h2>Academic foundation.</h2>
+            </div>
+
+            <div class="education-grid">
+
+                <article class="education-card education-green">
+                    <span class="education-year">2025</span>
+                    <span class="education-type">Bachelor's Degree</span>
+                    <h3>Bachelor of Science in Electrical Engineering</h3>
+                    <p>Dr. Emilio B. Espinosa Sr. Memorial State College of Agriculture and Technology (DEBESMSCAT)</p>
+                    <small>Mandaon, Masbate, Philippines</small>
+                </article>
+
+                <article class="education-card education-purple">
+                    <span class="education-year">2027</span>
+                    <span class="education-type">Bachelor's Degree</span>
+                    <h3>Bachelor of Science in Computer Science</h3>
+                    <p>University of the People</p>
+                    <small>Wilmington, Delaware, USA</small>
+                </article>
+
+                <article class="education-card education-mix">
+                    <span class="education-year">2026</span>
+                    <span class="education-type">Associate Degree</span>
+                    <h3>Associate of Science in Computer Science</h3>
+                    <p>University of the People</p>
+                    <small>Wilmington, Delaware, USA</small>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- CREDENTIALS -->
+        <section id="credentials" class="content-section">
+            <div class="section-heading">
+                <span class="section-label">CREDENTIALS</span>
+                <h2>Licenses, eligibility, and certificates.</h2>
+            </div>
+
+            <div class="credentials-grid">
+
+                <div class="credential-column license-column">
+                    <span class="credential-label">LICENSE</span>
+                    <article class="credential-card featured-credential">
+                        <span class="credential-icon">✓</span>
+                        <div>
+                            <h3>Registered Electrical Engineer (REE)</h3>
+                            <p>Professional Regulation Commission (PRC)</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="credential-column">
+                    <span class="credential-label">PROFESSIONAL ELIGIBILITY</span>
+                    <article class="credential-card">
+                        <span class="credential-icon">✓</span>
+                        <div>
+                            <h3>Career Service Examination (PPT) — Professional Level Passer</h3>
+                            <p>Career Service Professional Eligibility</p>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+
+            <div class="certificates-block">
+                <span class="credential-label">CERTIFICATES</span>
+
+                <div class="certificate-grid">
+                    <article class="certificate-card">
+                        <strong>Electrical Installation and Maintenance NC II</strong>
+                        <span>TESDA</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Basic Occupational Safety and Health for SO2</strong>
+                        <span>Occupational Safety and Health</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Google Project Management Professional Certificate</strong>
+                        <span>Coursera</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Google IT Support Professional Certificate</strong>
+                        <span>Coursera</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Google Data Analytics Professional Certificate</strong>
+                        <span>Coursera</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Google Cybersecurity Professional Certificate</strong>
+                        <span>Coursera</span>
+                    </article>
+
+                    <article class="certificate-card">
+                        <strong>Associate Data Analyst</strong>
+                        <span>DataCamp</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact-section">
+            <div class="contact-inner">
+
+                <div>
+                    <span class="section-label">CONTACT</span>
+                    <h2>Let's connect.</h2>
+                    <p>
+                        For professional opportunities, engineering and technology
+                        collaborations, or simply to connect, feel free to reach out.
+                    </p>
+                </div>
+
+                <div class="contact-links">
+                    <a href="mailto:princerubia13@gmail.com" class="contact-link">
+                        <span>Email</span>
+                        <strong>princerubia13@gmail.com</strong>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/blademir-rubia-12305426a/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span>LinkedIn</span>
+                        <strong>linkedin.com/in/blademir-rubia</strong>
+                    </a>
+
+                    <a href="https://github.com/valeriovlad13-del" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span>GitHub</span>
+                        <strong>github.com/valeriovlad13-del</strong>
+                    </a>
+
+                    <div class="contact-link">
+                        <span>Location</span>
+                        <strong>Makati City, Philippines</strong>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
 
-
-        <h1>
-            Blademir P. Rubia
-        </h1>
-
-
-        <h2>
-            REE | Junior Design Engineer | Data Analyst | IoT
-        </h2>
-
-
-        <p>
-            Building practical solutions through engineering, software,
-            data, and technology.
-        </p>
-
-    </header>
-
-
-
-    <!-- =========================
-         ABOUT ME
-         ========================= -->
-
-    <section id="about">
-
-        <h2>
-            About Me
-        </h2>
-
-
-        <p>
-            I am an Electrical Engineer working in the power generation
-            industry while continuing my studies in Computer Science.
-            My background combines electrical engineering, technical
-            support, data analysis, and embedded systems.
-        </p>
-
-
-        <p>
-            I am interested in automation, control systems, data analytics,
-            artificial intelligence, software development, and IoT
-            technologies. I enjoy combining engineering knowledge with
-            computing and data to develop practical technology-driven
-            solutions.
-        </p>
-
-
-        <p>
-            I earned my Bachelor of Science in Electrical Engineering from
-            Dr. Emilio B. Espinosa Sr. Memorial State College of Agriculture
-            and Technology (DEBESMSCAT) and am continuing my Computer Science
-            education at the University of the People.
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         EDUCATION
-         ========================= -->
-
-    <section id="education">
-
-        <h2>
-            Education
-        </h2>
-
-
-        <ul>
-
-            <li>
-
-                <strong>
-                    Bachelor of Science in Electrical Engineering
-                </strong>
-
-                <br>
-
-                Dr. Emilio B. Espinosa Sr. Memorial State College
-                of Agriculture and Technology (DEBESMSCAT)
-
-                <br>
-
-                <small>
-                    2025
-                </small>
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Computer Science
-                </strong>
-
-                <br>
-
-                University of the People
-
-                <br>
-
-                <small>
-                    Associate Degree → Bachelor of Science in Computer Science
-                </small>
-
-            </li>
-
-        </ul>
-
-    </section>
-
-
-
-    <!-- =========================
-         PROFESSIONAL EXPERIENCE
-         ========================= -->
-
-    <section id="experience">
-
-        <h2>
-            Professional Experience
-        </h2>
-
-
-        <ul>
-
-            <li>
-
-                <strong>
-                    Junior Design Engineer
-                </strong>
-
-                <br>
-
-                MHI Power Technical Services Corporation
-
-                <br>
-
-                <small>
-                    Direct Distributed Controls
-                </small>
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Customer Service & Technical Support Associate
-                </strong>
-
-                <br>
-
-                Sutherland Global Services Philippines
-
-                <br>
-
-                <small>
-                    Technical Support • Customer Service • Account Management
-                </small>
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Substation Technician Intern
-                </strong>
-
-                <br>
-
-                Masbate Electric Cooperative (MASELCO)
-
-                <br>
-
-                <small>
-                    Technical Services Department
-                </small>
-
-            </li>
-
-        </ul>
-
-    </section>
-
-
-
-    <!-- =========================
-         PROJECTS
-         ========================= -->
-
-    <section id="projects">
-
-        <h2>
-            Projects
-        </h2>
-
-
-        <ul>
-
-            <li>
-
-                <strong>
-                    Smart Energy Meter
-                </strong>
-
-                <br>
-
-                IoT-based energy monitoring system using ESP32,
-                PZEM-004T, LCD display, and Blynk for real-time
-                electrical energy monitoring.
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Remote Security System
-                </strong>
-
-                <br>
-
-                NodeMCU-based security project with remote monitoring
-                and control capabilities.
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Home Automation System
-                </strong>
-
-                <br>
-
-                Bluetooth-based automation project using HC-05
-                and MIT App Inventor.
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Electrical Load Design
-                </strong>
-
-                <br>
-
-                Residential electrical design and load calculations
-                using AutoCAD and electrical engineering principles.
-
-            </li>
-
-
-            <li>
-
-                <strong>
-                    Data Analytics Projects
-                </strong>
-
-                <br>
-
-                Data analysis, visualization, business intelligence,
-                and dashboard-related projects using modern
-                data tools.
-
-            </li>
-
-        </ul>
-
-    </section>
-
-
-
-    <!-- =========================
-         SKILLS
-         ========================= -->
-
-    <section id="skills">
-
-        <h2>
-            Skills
-        </h2>
-
-
-        <p>
-            Electrical Engineering |
-            Power Systems |
-            Control Systems |
-            Data Analysis |
-            Business Intelligence |
-            Excel |
-            Python |
-            C/C++ |
-            JavaScript |
-            Arduino |
-            ESP32 |
-            MATLAB |
-            AutoCAD |
-            IoT |
-            Embedded Systems |
-            Technical Documentation
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         CERTIFICATIONS
-         ========================= -->
-
-    <section id="certifications">
-
-        <h2>
-            Certifications
-        </h2>
-
-
-        <ul>
-
-            <li>
-                <strong>
-                    Registered Electrical Engineer (REE)
-                </strong>
-            </li>
-
-
-            <li>
-                Electrical Installation & Maintenance NC II
-            </li>
-
-
-            <li>
-                Basic Occupational Safety and Health (BOSH)
-                — Safety Officer 2 (SO2)
-            </li>
-
-
-            <li>
-                Google Business Intelligence
-            </li>
-
-
-            <li>
-                Google Cloud Data Analytics
-            </li>
-
-
-            <li>
-                Associate Data Analyst
-            </li>
-
-
-            <li>
-                Project Management
-            </li>
-
-        </ul>
-
-    </section>
-
-
-
-    <!-- =========================
-         INTERESTS
-         ========================= -->
-
-    <section id="interests">
-
-        <h2>
-            Current Interests
-        </h2>
-
-
-        <p>
-            I am currently exploring the intersection of electrical
-            engineering, power generation, computer science, data analytics,
-            automation, artificial intelligence, and software development.
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         CONTACT
-         ========================= -->
-
-    <section id="contact">
-
-        <h2>
-            Contact
-        </h2>
-
-
-        <p>
-            Email:
-            <a href="mailto: princerubia13@gmail.com">
-                princerubia13@gmail.com
-            </a>
-        </p>
-
-
-        <p>
-            LinkedIn:
-            <a
-                href="https://www.linkedin.com/in/blademir-rubia-12305426a/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                linkedin.com/in/blademir-rubia
-            </a>
-        </p>
-
-
-        <p>
-            Facebook:
-            <a
-                href="https://m.facebook.com/blademir.rubia/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                facebook.com/blademir.rubia
-            </a>
-        </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         FOOTER
-         ========================= -->
 
     <footer>
-
-        <p>
-            &copy; 2026 Blademir P. Rubia.
-            All rights reserved.
-        </p>
-
+        <div class="footer-inner">
+            <p>© 2026 Engr. Blademir Pagayunan Rubia.</p>
+            <p>Electrical Engineer <span>|</span> Computer Science</p>
+        </div>
     </footer>
 
 
+    <script src="script.js"></script>
 </body>
 
 </html>
