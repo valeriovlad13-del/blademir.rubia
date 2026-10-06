@@ -5,7 +5,7 @@ const primaryNavigation = document.getElementById("primary-navigation");
 const THEME_KEY = "blademirPortfolioTheme";
 
 function renderThemeIcon(isDark) {
-    if (!themeIcon) return;
+    if (!themeIcon || !themeToggle) return;
 
     themeIcon.innerHTML = isDark
         ? `
