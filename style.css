@@ -1163,6 +1163,7 @@ button {
     padding: 18px;
     border: 1px solid rgba(31, 37, 34, 0.10);
     border-radius: 15px;
+    color: #69716b;
     background: rgba(255, 255, 255, 0.64);
     transition: transform var(--transition), background var(--transition);
 }
@@ -1170,6 +1171,20 @@ button {
 .contact-link:hover {
     transform: translateY(-3px);
     background: rgba(255, 255, 255, 0.88);
+}
+
+.contact-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    margin-bottom: 12px;
+    color: #69716b;
+    display: block;
+}
+
+.contact-icon-filled {
+    fill: currentColor;
+    stroke: none;
 }
 
 .contact-link span {
@@ -1182,6 +1197,7 @@ button {
 
 .contact-link strong {
     margin-top: 5px;
+    color: #1f2522;
     font-size: 0.8rem;
     overflow-wrap: anywhere;
 }
