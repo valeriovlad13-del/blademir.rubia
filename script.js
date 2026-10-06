@@ -1,5 +1,7 @@
 const themeToggle = document.getElementById("theme-toggle");
 const themeIcon = document.querySelector(".theme-icon");
+const menuToggle = document.getElementById("menu-toggle");
+const primaryNavigation = document.getElementById("primary-navigation");
 const THEME_KEY = "blademirPortfolioTheme";
 
 function renderThemeIcon(isDark) {
@@ -41,6 +43,44 @@ if (themeToggle) {
     themeToggle.addEventListener("click", () => {
         const isDark = document.body.classList.contains("dark-mode");
         setTheme(!isDark);
+    });
+}
+
+function setMenu(open) {
+    if (!menuToggle || !primaryNavigation) return;
+
+    primaryNavigation.classList.toggle("is-open", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute(
+        "aria-label",
+        open ? "Close navigation menu" : "Open navigation menu"
+    );
+    menuToggle.setAttribute(
+        "title",
+        open ? "Close navigation menu" : "Open navigation menu"
+    );
+}
+
+if (menuToggle && primaryNavigation) {
+    menuToggle.addEventListener("click", () => {
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+        setMenu(!isOpen);
+    });
+
+    primaryNavigation.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setMenu(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            setMenu(false);
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 760) {
+            setMenu(false);
+        }
     });
 }
 
