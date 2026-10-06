@@ -905,9 +905,9 @@ button {
 }
 
 .education-logo {
-    width: 48px;
+    width: 110px;
     height: 48px;
-    flex: 0 0 48px;
+    flex: 0 0 110px;
     display: grid;
     place-items: center;
     padding: 7px;
@@ -920,6 +920,7 @@ button {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: contain;
 }
 
 .education-year,
