@@ -902,19 +902,20 @@ button {
 .education-top {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 .education-logo {
-    width: 92px;
-    height: 48px;
-    flex: 0 0 92px;
+    width: 100px;
+    height: 100px;
+    flex: 0 0 100px;
     display: grid;
     place-items: center;
-    padding: 7px;
+    padding: 10px;
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 20px;
     background: var(--surface);
+    overflow: hidden;
 }
 
 .education-logo .institution-logo {
@@ -922,6 +923,16 @@ button {
     height: 100%;
     display: block;
     object-fit: contain;
+}
+
+.education-logo-uop .institution-logo {
+    object-fit: cover;
+    transform: scale(1.35);
+}
+
+.education-logo-debes .institution-logo {
+    object-fit: contain;
+    transform: scale(1.04);
 }
 
 .education-year,
@@ -1386,6 +1397,14 @@ footer {
     .timeline-content,
     .education-card {
         padding: 22px;
+    }
+
+    .education-logo {
+        width: 88px;
+        height: 88px;
+        flex-basis: 88px;
+        padding: 9px;
+        border-radius: 18px;
     }
 
     .timeline {
