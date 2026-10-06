@@ -1079,8 +1079,7 @@ button {
     object-fit: contain;
 }
 
-.license-column .credential-logo,
-.credential-column:not(.license-column) .credential-logo {
+.credential-column .credential-logo {
     transform: scale(1.21);
 }
 
