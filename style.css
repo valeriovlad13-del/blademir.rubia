@@ -169,7 +169,7 @@ button {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex: 0 0 auto;
 }
 
@@ -1474,7 +1474,12 @@ footer {
     }
 
     .nav-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
         gap: 8px;
+        width: auto;
+        margin-left: auto;
     }
 
     .theme-toggle,
