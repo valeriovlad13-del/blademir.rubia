@@ -685,8 +685,8 @@ button {
 }
 
 .timeline-logo {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 52px;
     margin-left: -4px;
     border-radius: 13px;
     padding: 7px;
@@ -699,6 +699,7 @@ button {
     height: 100%;
     display: block;
     object-fit: contain;
+    border-radius: 8px;
 }
 
 .timeline-logo-mhi {
@@ -905,9 +906,9 @@ button {
 }
 
 .education-logo {
-    width: 110px;
+    width: 92px;
     height: 48px;
-    flex: 0 0 110px;
+    flex: 0 0 92px;
     display: grid;
     place-items: center;
     padding: 7px;
