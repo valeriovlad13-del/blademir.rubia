@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Smart Energy Meter — an undergraduate research project by Engr. Blademir Pagayunan Rubia and Mark Jethro B. Magallanes using ESP32, PZEM-004T, LCD, and Blynk.">
+    <meta name="author" content="Engr. Blademir Pagayunan Rubia and Mark Jethro B. Magallanes">
+    <meta name="theme-color" content="#90b27c">
+
+    <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+    <title>Smart Energy Meter | Engr. Blademir Pagayunan Rubia</title>
+
+    <script>
+        try {
+            if (localStorage.getItem("blademirPortfolioTheme") === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        } catch (error) {
+            // Ignore storage access errors and use the default theme.
+        }
+    </script>
+
+    <style>
+        :root {
+            --ink: #1f2522;
+            --muted: #69716b;
+            --white: #ffffff;
+            --surface: #f5f7f4;
+            --border: rgba(31, 37, 34, 0.10);
+            --green: #90b27c;
+            --green-dark: #4f7044;
+            --green-pale: #e8f0e4;
+            --purple: #9d7cb2;
+            --purple-dark: #695078;
+            --purple-pale: #eee7f2;
+            --shadow-sm: 0 8px 24px rgba(31, 37, 34, 0.07);
+            --shadow-md: 0 18px 45px rgba(31, 37, 34, 0.10);
+            --radius: 20px;
+            --transition: 180ms ease;
+        }
+
+        :is(body.dark-mode, html[data-theme="dark"]) {
+            --ink: #edf2ed;
+            --muted: #b6c0b8;
+            --white: #18201b;
+            --surface: #111713;
+            --border: rgba(237, 242, 237, 0.12);
+            --green-pale: #1c2a1c;
+            --purple-pale: #28202e;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 5% 8%, rgba(144, 178, 124, 0.13), transparent 24rem),
+                radial-gradient(circle at 95% 35%, rgba(157, 124, 178, 0.14), transparent 26rem),
+                var(--surface);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.65;
+        }
+
+        a { color: inherit; }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+            background: color-mix(in srgb, var(--white) 88%, transparent);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-inner {
+            width: min(1160px, 92%);
+            min-height: 68px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .back-link,
+        .theme-toggle {
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .back-link {
+            padding: 9px 14px;
+            text-decoration: none;
+        }
+
+        .back-link:hover { color: var(--purple-dark); }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        main {
+            width: min(1160px, 92%);
+            margin: 0 auto;
+            padding: 80px 0 100px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 50px;
+            align-items: end;
+            padding-bottom: 55px;
+        }
+
+        .eyebrow,
+        .section-label {
+            color: var(--purple-dark);
+            font-size: 0.68rem;
+            font-weight: 850;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        h1, h2, h3, p { margin: 0; }
+
+        h1 {
+            max-width: 850px;
+            margin-top: 14px;
+            font-size: clamp(2.8rem, 6vw, 5.4rem);
+            line-height: 0.98;
+            letter-spacing: -0.055em;
+        }
+
+        .title-accent {
+            background: linear-gradient(100deg, var(--purple-dark), var(--purple), var(--green-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .intro {
+            max-width: 740px;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .project-meta {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .project-meta dl {
+            margin: 0;
+            display: grid;
+            gap: 15px;
+        }
+
+        .project-meta div {
+            display: grid;
+            grid-template-columns: 105px 1fr;
+            gap: 14px;
+        }
+
+        .project-meta dt {
+            color: var(--muted);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .project-meta dd {
+            margin: 0;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .section { margin-top: 55px; }
+
+        .section-heading { margin-bottom: 24px; }
+
+        .section-heading h2 {
+            margin-top: 8px;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        .overview-grid,
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .info-card,
+        .hardware-card,
+        .metric-card,
+        .result-card,
+        .research-card {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-card h3,
+        .hardware-card h3 { font-size: 1.05rem; }
+
+        .info-card p,
+        .hardware-card p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .tag-row span {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+            background: var(--surface);
+            font-size: 0.72rem;
+            font-weight: 750;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .metric-card {
+            min-height: 145px;
+            padding: 22px;
+            background: linear-gradient(135deg, var(--green-pale), var(--purple-pale));
+        }
+
+        .metric-card strong {
+            display: block;
+            font-size: 1.35rem;
+            line-height: 1.15;
+        }
+
+        .metric-card span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 0.72rem;
+            line-height: 1.45;
+        }
+
+        .architecture {
+            padding: 22px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .architecture svg {
+            display: block;
+            width: 100%;
+            min-width: 780px;
+            height: auto;
+        }
+
+        .architecture-note {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .hardware-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        .hardware-card {
+            min-height: 190px;
+            padding: 22px;
+        }
+
+        .hardware-index {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            color: var(--purple-dark);
+            background: var(--purple-pale);
+            font-size: 0.7rem;
+            font-weight: 850;
+        }
+
+        .hardware-card h3 { margin-top: 18px; }
+
+        .monitor-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .blynk-panel {
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: #101612;
+            color: #edf2ed;
+            box-shadow: var(--shadow-md);
+        }
+
+        .blynk-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .blynk-top strong { font-size: 0.9rem; }
+
+        .online {
+            padding: 5px 9px;
+            border-radius: 999px;
+            color: #1f2522;
+            background: var(--green);
+            font-size: 0.64rem;
+            font-weight: 850;
+        }
+
+        .blynk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .blynk-value {
+            padding: 16px;
+            border: 1px solid rgba(237, 242, 237, 0.12);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.045);
+        }
+
+        .blynk-value span {
+            display: block;
+            color: #aeb9b1;
+            font-size: 0.64rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .blynk-value strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.3rem;
+        }
+
+        .monitor-copy {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .monitor-copy h3 { font-size: 1.15rem; }
+
+        .monitor-copy p {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .formula {
+            margin-top: 18px;
+            padding: 16px;
+            border-left: 3px solid var(--green);
+            border-radius: 0 14px 14px 0;
+            background: var(--surface);
+            color: var(--ink);
+            font-size: 0.82rem;
+            font-weight: 750;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 18px;
+        }
+
+        .chart-card {
+            padding: 22px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-card h3 {
+            font-size: 1rem;
+        }
+
+        .chart-card p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        .chart-card svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 18px;
+        }
+
+        .table-wrap {
+            margin-top: 18px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 520px;
+            font-size: 0.75rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: right;
+        }
+
+        th:first-child, td:first-child { text-align: left; }
+
+        th {
+            color: var(--muted);
+            background: var(--surface);
+            font-size: 0.67rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        tr:last-child td { border-bottom: 0; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .result-card strong {
+            display: block;
+            font-size: 1.55rem;
+        }
+
+        .result-card span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 0.7rem;
+        }
+
+        .reliability {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 18px;
+        }
+
+        .reliability-score {
+            display: grid;
+            place-items: center;
+            min-height: 250px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--green-pale), var(--purple-pale));
+            text-align: center;
+        }
+
+        .reliability-score strong {
+            display: block;
+            font-size: clamp(3rem, 8vw, 5rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+        }
+
+        .reliability-score span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        .bar-chart {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bar {
+            display: grid;
+            grid-template-columns: 70px 1fr 55px;
+            align-items: center;
+            gap: 12px;
+            margin: 11px 0;
+            font-size: 0.7rem;
+        }
+
+        .bar-track {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--surface);
+        }
+
+        .bar-fill {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--green), var(--purple));
+        }
+
+        .bar-value {
+            color: var(--muted);
+            text-align: right;
+            font-weight: 800;
+        }
+
+        .limitations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .limitation-list {
+            margin: 15px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        .limitation-list li + li { margin-top: 8px; }
+
+        .research-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 26px;
+        }
+
+        .research-card p {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .research-link {
+            flex: 0 0 auto;
+            padding: 12px 16px;
+            border-radius: 999px;
+            color: #fff;
+            background: var(--purple-dark);
+            font-size: 0.75rem;
+            font-weight: 850;
+            text-decoration: none;
+        }
+
+        .research-link:hover { background: var(--green-dark); }
+
+        .closing {
+            margin-top: 65px;
+            padding: 30px;
+            border-radius: var(--radius);
+            color: #1f2522;
+            background: linear-gradient(135deg, var(--green-pale), var(--purple-pale));
+        }
+
+        .closing h2 { font-size: 1.45rem; }
+
+        .closing p {
+            max-width: 820px;
+            margin-top: 10px;
+            color: #5d655f;
+            font-size: 0.88rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            background: var(--white);
+        }
+
+        .footer-inner {
+            width: min(1160px, 92%);
+            min-height: 85px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 0.76rem;
+        }
+
+        :is(body.dark-mode, html[data-theme="dark"]) .topbar {
+            background: rgba(24, 32, 27, 0.88);
+        }
+
+        :is(body.dark-mode, html[data-theme="dark"]) .info-card,
+        :is(body.dark-mode, html[data-theme="dark"]) .hardware-card,
+        :is(body.dark-mode, html[data-theme="dark"]) .metric-card,
+        :is(body.dark-mode, html[data-theme="dark"]) .architecture,
+        :is(body.dark-mode, html[data-theme="dark"]) .monitor-copy,
+        :is(body.dark-mode, html[data-theme="dark"]) .chart-card,
+        :is(body.dark-mode, html[data-theme="dark"]) .bar-chart,
+        :is(body.dark-mode, html[data-theme="dark"]) .research-card,
+        :is(body.dark-mode, html[data-theme="dark"]) .project-meta {
+            background: var(--white);
+        }
+
+        @media (max-width: 1000px) {
+            .hero,
+            .monitor-grid,
+            .results-grid,
+            .reliability {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hardware-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            main {
+                width: min(94%, 1160px);
+                padding-top: 55px;
+            }
+
+            .topbar-inner {
+                width: min(94%, 1160px);
+            }
+
+            h1 {
+                font-size: clamp(2.7rem, 13vw, 4.2rem);
+            }
+
+            .overview-grid,
+            .hardware-grid,
+            .limitations,
+            .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-card {
+                display: block;
+            }
+
+            .research-link {
+                display: inline-block;
+                margin-top: 16px;
+            }
+
+            .project-meta div {
+                grid-template-columns: 90px 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                min-height: 100px;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--purple);
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="back-link" href="../index.html#projects">← Back to Projects</a>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+                <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div>
+                <span class="eyebrow"><span class="eyebrow-dot"></span> Undergraduate Research Project</span>
+                <h1>Smart <span class="title-accent">Energy Meter</span></h1>
+                <p class="intro">
+                    A fabricated IoT-based energy monitoring system using an ESP32
+                    microcontroller and PZEM-004T sensor for real-time residential
+                    electricity monitoring, local display, remote Blynk monitoring,
+                    estimated billing, and hourly email notifications.
+                </p>
+            </div>
+
+            <aside class="project-meta" aria-label="Project information">
+                <dl>
+                    <div><dt>Title</dt><dd>Design and Fabrication of a Smart Energy Meter using ESP32 Microcontroller and PZEM-004T Sensor</dd></div>
+                    <div><dt>Authors</dt><dd>Blademir P. Rubia &amp; Mark Jethro B. Magallanes</dd></div>
+                    <div><dt>Institution</dt><dd>DEBESMSCAT</dd></div>
+                    <div><dt>Program</dt><dd>Bachelor of Science in Electrical Engineering</dd></div>
+                    <div><dt>Research</dt><dd>August 2024 – May 2025</dd></div>
+                </dl>
+            </aside>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">PROJECT OVERVIEW</span>
+                <h2>From electrical measurements to connected energy monitoring.</h2>
+            </div>
+
+            <div class="overview-grid">
+                <article class="info-card">
+                    <h3>System Purpose</h3>
+                    <p>
+                        The project was designed and fabricated to provide real-time
+                        monitoring of residential electricity use. The PZEM-004T
+                        measures electrical parameters while the ESP32 processes the
+                        readings and connects the system to its monitoring interfaces.
+                    </p>
+                    <div class="tag-row">
+                        <span>Energy Monitoring</span>
+                        <span>ESP32</span>
+                        <span>PZEM-004T</span>
+                        <span>IoT</span>
+                    </div>
+                </article>
+
+                <article class="info-card">
+                    <h3>Local + Remote Monitoring</h3>
+                    <p>
+                        A 16x2 I2C LCD provides local readings, while the Blynk
+                        application provides remote monitoring through Wi-Fi. The
+                        system also sends hourly email updates containing energy
+                        consumption and estimated billing information.
+                    </p>
+                    <div class="tag-row">
+                        <span>16x2 LCD</span>
+                        <span>Blynk</span>
+                        <span>Wi-Fi</span>
+                        <span>Email Notifications</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">SYSTEM HIGHLIGHTS</span>
+                <h2>What the prototype was built to deliver.</h2>
+            </div>
+
+            <div class="highlight-grid">
+                <div class="metric-card"><strong>5</strong><span>Monitored values: voltage, current, power, energy, and estimated bill</span></div>
+                <div class="metric-card"><strong>2</strong><span>Monitoring interfaces: local LCD and remote Blynk application</span></div>
+                <div class="metric-card"><strong>12 hours</strong><span>Final evaluation period with hourly energy readings</span></div>
+                <div class="metric-card"><strong>12 / 12</strong><span>Hourly email notifications received during the evaluation</span></div>
+                <div class="metric-card"><strong>₱1,540.18</strong><span>Total prototype bill of materials including 5% contingency</span></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">SYSTEM ARCHITECTURE</span>
+                <h2>How the smart meter moves data.</h2>
+            </div>
+
+            <div class="architecture">
+                <svg viewBox="0 0 1080 360" role="img" aria-label="System architecture showing AC source to PZEM-004T to ESP32, then local LCD, Blynk application, and hourly email notifications.">
+                    <defs>
+                        <linearGradient id="flowGreen" x1="0" x2="1">
+                            <stop offset="0" stop-color="#90b27c"/>
+                            <stop offset="1" stop-color="#4f7044"/>
+                        </linearGradient>
+                        <linearGradient id="flowPurple" x1="0" x2="1">
+                            <stop offset="0" stop-color="#9d7cb2"/>
+                            <stop offset="1" stop-color="#695078"/>
+                        </linearGradient>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                            <path d="M0 0L10 5L0 10Z" fill="#69716b"/>
+                        </marker>
+                    </defs>
+
+                    <rect x="25" y="135" width="170" height="90" rx="18" fill="#e8f0e4" stroke="#90b27c"/>
+                    <text x="110" y="172" text-anchor="middle" font-size="16" font-weight="800" fill="#1f2522">AC Source</text>
+                    <text x="110" y="196" text-anchor="middle" font-size="12" fill="#69716b">Electrical input</text>
+
+                    <line x1="195" y1="180" x2="270" y2="180" stroke="#69716b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+                    <rect x="270" y="115" width="205" height="130" rx="18" fill="#eee7f2" stroke="#9d7cb2"/>
+                    <text x="372" y="158" text-anchor="middle" font-size="17" font-weight="850" fill="#1f2522">PZEM-004T</text>
+                    <text x="372" y="184" text-anchor="middle" font-size="12" fill="#69716b">Voltage • Current</text>
+                    <text x="372" y="204" text-anchor="middle" font-size="12" fill="#69716b">Power • Energy</text>
+
+                    <line x1="475" y1="180" x2="555" y2="180" stroke="#69716b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+                    <rect x="555" y="105" width="185" height="150" rx="18" fill="url(#flowGreen)" />
+                    <text x="647" y="157" text-anchor="middle" font-size="19" font-weight="900" fill="#ffffff">ESP32</text>
+                    <text x="647" y="184" text-anchor="middle" font-size="12" fill="#ffffff">Process readings</text>
+                    <text x="647" y="205" text-anchor="middle" font-size="12" fill="#ffffff">Calculate estimate</text>
+
+                    <line x1="740" y1="145" x2="815" y2="85" stroke="#69716b" stroke-width="2.5" marker-end="url(#arrow)"/>
+                    <line x1="740" y1="180" x2="815" y2="180" stroke="#69716b" stroke-width="2.5" marker-end="url(#arrow)"/>
+                    <line x1="740" y1="215" x2="815" y2="275" stroke="#69716b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+                    <rect x="815" y="35" width="230" height="75" rx="16" fill="#ffffff" stroke="#90b27c"/>
+                    <text x="930" y="68" text-anchor="middle" font-size="15" font-weight="850" fill="#1f2522">16x2 I2C LCD</text>
+                    <text x="930" y="91" text-anchor="middle" font-size="11" fill="#69716b">Local real-time display</text>
+
+                    <rect x="815" y="143" width="230" height="75" rx="16" fill="#ffffff" stroke="#9d7cb2"/>
+                    <text x="930" y="176" text-anchor="middle" font-size="15" font-weight="850" fill="#1f2522">Blynk IoT</text>
+                    <text x="930" y="199" text-anchor="middle" font-size="11" fill="#69716b">Remote monitoring via Wi-Fi</text>
+
+                    <rect x="815" y="251" width="230" height="75" rx="16" fill="#ffffff" stroke="#90b27c"/>
+                    <text x="930" y="284" text-anchor="middle" font-size="15" font-weight="850" fill="#1f2522">Hourly Email</text>
+                    <text x="930" y="307" text-anchor="middle" font-size="11" fill="#69716b">Energy + estimated billing</text>
+                </svg>
+                <p class="architecture-note">
+                    Source-derived system flow: PZEM-004T measurement → ESP32 processing →
+                    local LCD output and, when connected to Wi-Fi, Blynk monitoring and hourly
+                    email notifications.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">HARDWARE</span>
+                <h2>Core components of the fabricated system.</h2>
+            </div>
+
+            <div class="hardware-grid">
+                <article class="hardware-card"><span class="hardware-index">01</span><h3>ESP32 Microcontroller</h3><p>Main controller that receives PZEM data, processes readings, drives the LCD, and connects the system to Wi-Fi.</p></article>
+                <article class="hardware-card"><span class="hardware-index">02</span><h3>PZEM-004T + Current Sensor</h3><p>Measures voltage, current, power, and accumulated energy consumption for the monitoring system.</p></article>
+                <article class="hardware-card"><span class="hardware-index">03</span><h3>I2C LCD 16x2</h3><p>Provides a local display for real-time electrical measurements and estimated billing information.</p></article>
+                <article class="hardware-card"><span class="hardware-index">04</span><h3>20A MCB</h3><p>Used for load control and overcurrent protection within the fabricated device.</p></article>
+                <article class="hardware-card"><span class="hardware-index">05</span><h3>5-Way Distribution Box</h3><p>Compact enclosure used to house and organize the core components of the smart meter.</p></article>
+                <article class="hardware-card"><span class="hardware-index">06</span><h3>5V 2A AC-DC Adapter</h3><p>Provides the low-voltage DC supply required by the ESP32 and associated electronics.</p></article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">REMOTE MONITORING</span>
+                <h2>Local measurements, connected through Blynk.</h2>
+            </div>
+
+            <div class="monitor-grid">
+                <div class="blynk-panel" aria-label="Recreated Blynk interface based on a study example">
+                    <div class="blynk-top">
+                        <strong>IoT Energy Meter</strong>
+                        <span class="online">CONNECTED</span>
+                    </div>
+                    <div class="blynk-grid">
+                        <div class="blynk-value"><span>Voltage</span><strong>223.7 V</strong></div>
+                        <div class="blynk-value"><span>Current</span><strong>0.66 A</strong></div>
+                        <div class="blynk-value"><span>Power</span><strong>116.8 W</strong></div>
+                        <div class="blynk-value"><span>Energy</span><strong>1.71 kWh</strong></div>
+                        <div class="blynk-value"><span>Estimated Bill</span><strong>₱18.17</strong></div>
+                        <div class="blynk-value"><span>Update</span><strong>Real-time</strong></div>
+                    </div>
+                </div>
+
+                <article class="monitor-copy">
+                    <h3>Blynk monitoring and estimated billing</h3>
+                    <p>
+                        The thesis demonstrates a Blynk interface for viewing voltage,
+                        current, power, energy, and estimated bill. The example shown
+                        in the study records 223.7 V, 0.66 A, 116.8 W, and 1.71 kWh.
+                    </p>
+                    <p>
+                        The study explains that real power is not simply voltage multiplied
+                        by current because AC power depends on power factor. For its example,
+                        the estimated bill uses 1.71 kWh and the MASELCO rate stated in the
+                        thesis, ₱10.625/kWh.
+                    </p>
+                    <div class="formula">
+                        Study example: Estimated bill = 1.71 kWh × ₱10.625/kWh ≈ ₱18.17
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">PERFORMANCE EVALUATION</span>
+                <h2>Smart meter readings versus the reference meter.</h2>
+            </div>
+
+            <div class="results-grid">
+                <article class="chart-card">
+                    <h3>12-hour energy comparison</h3>
+                    <p>Hourly cumulative energy readings reported in the research.</p>
+
+                    <svg viewBox="0 0 700 360" role="img" aria-label="Scatter comparison of smart meter and reference meter energy readings over 12 hours.">
+                        <line x1="65" y1="300" x2="665" y2="300" stroke="#69716b" stroke-width="1.5"/>
+                        <line x1="65" y1="40" x2="65" y2="300" stroke="#69716b" stroke-width="1.5"/>
+                        <line x1="65" y1="235" x2="665" y2="235" stroke="rgba(105,113,107,0.18)"/>
+                        <line x1="65" y1="170" x2="665" y2="170" stroke="rgba(105,113,107,0.18)"/>
+                        <line x1="65" y1="105" x2="665" y2="105" stroke="rgba(105,113,107,0.18)"/>
+                        <text x="45" y="305" font-size="11" fill="#69716b">0.5</text>
+                        <text x="45" y="240" font-size="11" fill="#69716b">1.0</text>
+                        <text x="45" y="175" font-size="11" fill="#69716b">1.5</text>
+                        <text x="45" y="110" font-size="11" fill="#69716b">2.0</text>
+                        <text x="45" y="45" font-size="11" fill="#69716b">2.5</text>
+                        <text x="350" y="340" text-anchor="middle" font-size="11" fill="#69716b">Reference meter (kWh)</text>
+                        <text x="14" y="175" transform="rotate(-90 14 175)" text-anchor="middle" font-size="11" fill="#69716b">Smart meter (kWh)</text>
+
+                        <line x1="90" y1="274" x2="640" y2="105" stroke="#9d7cb2" stroke-width="2" stroke-dasharray="6 6"/>
+
+                        <g fill="#90b27c" stroke="#4f7044" stroke-width="1.2">
+                            <circle cx="115" cy="275" r="5"/><circle cx="145" cy="262" r="5"/>
+                            <circle cx="175" cy="249" r="5"/><circle cx="205" cy="236" r="5"/>
+                            <circle cx="265" cy="220" r="5"/><circle cx="295" cy="204" r="5"/>
+                            <circle cx="325" cy="192" r="5"/><circle cx="355" cy="178" r="5"/>
+                            <circle cx="385" cy="166" r="5"/><circle cx="415" cy="152" r="5"/>
+                            <circle cx="445" cy="139" r="5"/><circle cx="505" cy="123" r="5"/>
+                        </g>
+
+                        <g fill="#9d7cb2" stroke="#695078" stroke-width="1.2">
+                            <circle cx="120" cy="274" r="4"/><circle cx="150" cy="261" r="4"/>
+                            <circle cx="180" cy="248" r="4"/><circle cx="210" cy="235" r="4"/>
+                            <circle cx="260" cy="222" r="4"/><circle cx="290" cy="209" r="4"/>
+                            <circle cx="320" cy="196" r="4"/><circle cx="350" cy="183" r="4"/>
+                            <circle cx="380" cy="170" r="4"/><circle cx="410" cy="157" r="4"/>
+                            <circle cx="440" cy="144" r="4"/><circle cx="500" cy="118" r="4"/>
+                        </g>
+                    </svg>
+
+                    <div class="tag-row">
+                        <span>Green: Smart Meter</span>
+                        <span>Purple: Reference Meter</span>
+                        <span>12 hourly observations</span>
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <h3>Reported statistical result</h3>
+                    <p>Paired comparison performed in the study using R.</p>
+
+                    <div class="stats-grid">
+                        <div class="result-card"><strong>2.5606</strong><span>t-statistic</span></div>
+                        <div class="result-card"><strong>0.0183</strong><span>Mean difference (kWh)</span></div>
+                        <div class="result-card"><strong>0.0265</strong><span>p-value</span></div>
+                    </div>
+
+                    <div class="formula">
+                        The study reports p = 0.0265, indicating a statistically significant
+                        difference at the 0.05 level. It attributes the discrepancy partly to
+                        the smart meter recording to two decimal places while the reference
+                        meter recorded one decimal place.
+                    </div>
+                </article>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Hour</th><th>Smart Meter (kWh)</th><th>Reference Meter (kWh)</th><th>Difference (kWh)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1:00</td><td>0.69</td><td>0.70</td><td>-0.01</td></tr>
+                        <tr><td>2:00</td><td>0.80</td><td>0.80</td><td>0.00</td></tr>
+                        <tr><td>3:00</td><td>0.90</td><td>0.90</td><td>0.00</td></tr>
+                        <tr><td>4:00</td><td>1.00</td><td>1.00</td><td>0.00</td></tr>
+                        <tr><td>5:00</td><td>1.12</td><td>1.10</td><td>0.02</td></tr>
+                        <tr><td>6:00</td><td>1.23</td><td>1.20</td><td>0.03</td></tr>
+                        <tr><td>7:00</td><td>1.32</td><td>1.30</td><td>0.02</td></tr>
+                        <tr><td>8:00</td><td>1.43</td><td>1.40</td><td>0.03</td></tr>
+                        <tr><td>9:00</td><td>1.54</td><td>1.50</td><td>0.04</td></tr>
+                        <tr><td>10:00</td><td>1.65</td><td>1.60</td><td>0.05</td></tr>
+                        <tr><td>11:00</td><td>1.76</td><td>1.70</td><td>0.06</td></tr>
+                        <tr><td>12:00</td><td>1.88</td><td>1.90</td><td>-0.02</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">NOTIFICATION RELIABILITY</span>
+                <h2>Hourly energy and billing updates.</h2>
+            </div>
+
+            <div class="reliability">
+                <div class="reliability-score">
+                    <div>
+                        <strong>100%</strong>
+                        <span>Observed delivery success<br>12 of 12 notifications received</span>
+                    </div>
+                </div>
+
+                <div class="bar-chart">
+                    <h3>Notification delivery across the test</h3>
+                    <p style="margin-top:6px;color:var(--muted);font-size:.76rem;">
+                        Each hourly notification in the study was reported as successfully received.
+                    </p>
+                    <div class="bar"><span>1:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>2:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>3:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>4:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>5:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>6:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>7:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>8:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>9:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>10:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>11:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                    <div class="bar"><span>12:00</span><div class="bar-track"><div class="bar-fill"></div></div><span class="bar-value">100%</span></div>
+                </div>
+            </div>
+
+            <div class="formula">
+                The thesis also reports a binomial test p-value of 0.2824. Because the sample
+                contained only 12 hourly observations, the result did not provide strong
+                statistical evidence against the stated null hypothesis, even though all
+                12 notifications were observed to arrive successfully.
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">LIMITATIONS &amp; FUTURE DEVELOPMENT</span>
+                <h2>What the study identified for the next iteration.</h2>
+            </div>
+
+            <div class="limitations">
+                <article class="info-card">
+                    <h3>Study limitations</h3>
+                    <ul class="limitation-list">
+                        <li>Final evaluation was limited to a 12-hour data collection period.</li>
+                        <li>The study did not cover power quality, network latency, long-term durability, or cybersecurity.</li>
+                        <li>The notification reliability evaluation used a small sample of 12 hourly observations.</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <h3>Recommendations in the research</h3>
+                    <ul class="limitation-list">
+                        <li>Upgrade to Blynk Pro for expanded functionality and data management.</li>
+                        <li>Integrate Firebase for long-term storage and historical trend analysis.</li>
+                        <li>Test the device under varying load conditions.</li>
+                        <li>Increase the sample size for stronger statistical power.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">RESEARCH PUBLICATION</span>
+                <h2>Read the complete undergraduate research.</h2>
+            </div>
+
+            <div class="research-card">
+                <div>
+                    <h3>Design and Fabrication of a Smart Energy Meter using ESP32 Microcontroller and PZEM-004T Sensor</h3>
+                    <p>
+                        Co-authored by <strong>Blademir P. Rubia</strong> and
+                        <strong>Mark Jethro B. Magallanes</strong>. Published on ResearchGate
+                        in May 2025 as an undergraduate thesis from DEBESMSCAT.
+                    </p>
+                </div>
+                <a class="research-link" href="https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR" target="_blank" rel="noopener noreferrer">View Research ↗</a>
+            </div>
+        </section>
+
+        <section class="closing">
+            <h2>Engineering, embedded systems, and IoT in one project.</h2>
+            <p>
+                This research project demonstrates the integration of electrical
+                measurement, embedded programming, local instrumentation, wireless
+                communication, remote monitoring, automated notifications, and
+                quantitative evaluation. It represents undergraduate engineering work
+                completed by Blademir P. Rubia and Mark Jethro B. Magallanes at DEBESMSCAT.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>© 2026 Engr. Blademir Pagayunan Rubia</span>
+            <a href="../index.html">Back to portfolio</a>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+        const themeIcon = document.getElementById("theme-icon");
+        const THEME_KEY = "blademirPortfolioTheme";
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+        function renderThemeIcon(isDark) {
+            if (!themeIcon || !themeToggle) return;
+
+            themeIcon.innerHTML = isDark
+                ? `
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+                `
+                : `
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                `;
+
+            themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+            themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+        }
+
+        function setTheme(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
+            document.documentElement.toggleAttribute("data-theme", isDark);
+
+            try {
+                localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+            } catch (error) {}
+
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute("content", isDark ? "#0e130f" : "#90b27c");
+            }
+
+            renderThemeIcon(isDark);
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener("click", () => {
+                const isDark = document.body.classList.contains("dark-mode");
+                setTheme(!isDark);
+            });
+        }
+
+        let savedTheme = null;
+        try {
+            savedTheme = localStorage.getItem(THEME_KEY);
+        } catch (error) {
+            savedTheme = null;
+        }
+
+        setTheme(savedTheme === "dark");
+    </script>
+</body>
+</html>
