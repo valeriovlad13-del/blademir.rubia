@@ -311,6 +311,48 @@
             letter-spacing: -0.03em;
         }
 
+        .project-documents {
+            margin-bottom: 22px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .document-links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .document-links a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 13px 15px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--ink);
+            background: var(--surface);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform var(--transition), border-color var(--transition);
+        }
+
+        .document-links a:hover {
+            transform: translateY(-2px);
+            border-color: var(--purple);
+        }
+
+        .document-links a span:last-child {
+            color: var(--purple-dark);
+            font-size: 1rem;
+        }
+
         .design-block-header p {
             max-width: 530px;
             color: var(--muted);
@@ -462,7 +504,8 @@
                 font-size: clamp(2.7rem, 13vw, 4.2rem);
             }
 
-            .gallery.two {
+            .gallery.two,
+            .document-links {
                 grid-template-columns: 1fr;
             }
 
@@ -612,6 +655,20 @@
                         layout, power layout, and schedule of loads with a
                         single-line diagram.
                     </p>
+                </div>
+
+                <div class="project-documents">
+                    <span class="section-label">PROJECT DOCUMENTS</span>
+                    <div class="document-links">
+                        <a href="../documents/residential-electrical-design/single-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
+                            <span>Single-Family Electrical Design</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                        <a href="../documents/residential-electrical-design/multi-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
+                            <span>Multi-Family Electrical Design</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="gallery">
