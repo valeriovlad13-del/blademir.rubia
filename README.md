@@ -24,6 +24,13 @@ A smart energy monitoring system built with an ESP32 microcontroller and PZEM-00
 - **Technologies:** ESP32, PZEM-004T, Blynk
 - **Publication:** [ResearchGate](https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR)
 
+### Residential Electrical Systems Design
+An academic residential electrical design project covering single-family and multi-family dwelling applications.
+
+- **Focus:** Floor plans, lighting layouts, power layouts, schedules of loads, single-line diagrams, wire and conduit specifications, and bills of materials
+- **Technologies/Tools:** AutoCAD, electrical design and drafting
+- **Project Page:** projects/residential-electrical-design.html
+
 ### Electrical Engineering Calculator
 A web-based calculator for selected electrical engineering computations.
 
@@ -52,7 +59,11 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 .
 ├── images/
 │   ├── logos/
+│   ├── projects/
+│   │   └── residential-electrical-design/
 │   └── favicon.svg
+├── projects/
+│   └── residential-electrical-design.html
 ├── index.html
 ├── style.css
 ├── script.js
