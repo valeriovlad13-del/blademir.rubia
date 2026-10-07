@@ -689,7 +689,7 @@ button {
 
 .timeline {
     position: relative;
-    width: 100%;
+    width: calc(100% - 15px);
     margin-left: 15px;
 }
 
