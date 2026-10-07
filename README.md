@@ -19,9 +19,10 @@ It highlights the intersection of:
 ## Featured Projects
 
 ### Smart Energy Meter
-A smart energy monitoring system built with an ESP32 microcontroller and PZEM-004T sensor.
+An undergraduate research project developed with **Mark Jethro B. Magallanes** using an ESP32 microcontroller and PZEM-004T sensor for real-time residential energy monitoring.
 
-- **Technologies:** ESP32, PZEM-004T, Blynk
+- **Technologies:** ESP32, PZEM-004T, 16x2 I2C LCD, Blynk, Arduino IDE
+- **Project Page:** projects/smart-energy-meter.html
 - **Publication:** [ResearchGate](https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR)
 
 ### Residential Electrical Systems Design
@@ -67,7 +68,8 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 │       ├── single-family-electrical-design.pdf
 │       └── multi-family-electrical-design.pdf
 ├── projects/
-│   └── residential-electrical-design.html
+│   ├── residential-electrical-design.html
+│   └── smart-energy-meter.html
 ├── index.html
 ├── style.css
 ├── script.js
