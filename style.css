@@ -1632,3 +1632,25 @@ html[data-theme="dark"] body {
         radial-gradient(circle at 95% 35%, rgba(157, 124, 178, 0.14), transparent 26rem),
         #0e130f;
 }
+
+
+/* Small-screen text and layout safeguards */
+@media (max-width: 520px) {
+    .section-heading h2,
+    .project-card h3,
+    .education-card h3,
+    .credential-card h3,
+    .certificate-card strong {
+        overflow-wrap: anywhere;
+    }
+
+    .credential-card,
+    .certificate-card {
+        min-width: 0;
+    }
+
+    .certificate-info,
+    .credential-card > div {
+        min-width: 0;
+    }
+}
