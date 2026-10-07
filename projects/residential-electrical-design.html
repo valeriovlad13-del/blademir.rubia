@@ -43,7 +43,7 @@
             --transition: 180ms ease;
         }
 
-        :is(html[data-theme="dark"]) {
+        :is(body.dark-mode, html[data-theme="dark"]) {
             --ink: #edf2ed;
             --muted: #b6c0b8;
             --white: #18201b;
@@ -467,32 +467,32 @@
             font-size: 0.76rem;
         }
 
-        :is(html[data-theme="dark"]) .project-documents,
-        :is(html[data-theme="dark"]) .project-meta,
-        :is(html[data-theme="dark"]) .info-card,
-        :is(html[data-theme="dark"]) figure,
-        :is(html[data-theme="dark"]) .note {
+        :is(body.dark-mode, html[data-theme="dark"]) .project-documents,
+        :is(body.dark-mode, html[data-theme="dark"]) .project-meta,
+        :is(body.dark-mode, html[data-theme="dark"]) .info-card,
+        :is(body.dark-mode, html[data-theme="dark"]) figure,
+        :is(body.dark-mode, html[data-theme="dark"]) .note {
             background: var(--white);
         }
 
-        :is(html[data-theme="dark"]) .document-links a {
+        :is(body.dark-mode, html[data-theme="dark"]) .document-links a {
             background: var(--surface);
             color: var(--ink);
         }
 
-        :is(html[data-theme="dark"]) .document-links a span:last-child {
+        :is(body.dark-mode, html[data-theme="dark"]) .document-links a span:last-child {
             color: var(--purple);
         }
 
-        :is(html[data-theme="dark"]) .topbar {
+        :is(body.dark-mode, html[data-theme="dark"]) .topbar {
             background: rgba(24, 32, 27, 0.88);
         }
 
-        :is(html[data-theme="dark"]) .closing {
+        :is(body.dark-mode, html[data-theme="dark"]) .closing {
             color: #1f2522;
         }
 
-        :is(html[data-theme="dark"]) .closing p {
+        :is(body.dark-mode, html[data-theme="dark"]) .closing p {
             color: #5d655f;
         }
 
@@ -839,6 +839,8 @@
         const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
         function renderThemeIcon(isDark) {
+            if (!themeIcon || !themeToggle) return;
+
             themeIcon.innerHTML = isDark
                 ? `
                     <circle cx="12" cy="12" r="4"></circle>
@@ -859,6 +861,7 @@
         }
 
         function setTheme(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
             document.documentElement.toggleAttribute("data-theme", isDark);
 
             try {
@@ -868,15 +871,21 @@
             }
 
             if (themeColorMeta) {
-                themeColorMeta.setAttribute("content", isDark ? "#0e130f" : "#90b27c");
+                themeColorMeta.setAttribute(
+                    "content",
+                    isDark ? "#0e130f" : "#90b27c"
+                );
             }
 
             renderThemeIcon(isDark);
         }
 
-        themeToggle.addEventListener("click", () => {
-            setTheme(!document.documentElement.hasAttribute("data-theme"));
-        });
+        if (themeToggle) {
+            themeToggle.addEventListener("click", () => {
+                const isDark = document.body.classList.contains("dark-mode");
+                setTheme(!isDark);
+            });
+        }
 
         let savedTheme = null;
 
