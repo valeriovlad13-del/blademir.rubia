@@ -62,6 +62,10 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 │   ├── projects/
 │   │   └── residential-electrical-design/
 │   └── favicon.svg
+├── documents/
+│   └── residential-electrical-design/
+│       ├── single-family-electrical-design.pdf
+│       └── multi-family-electrical-design.pdf
 ├── projects/
 │   └── residential-electrical-design.html
 ├── index.html

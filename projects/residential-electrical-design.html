@@ -312,12 +312,16 @@
         }
 
         .project-documents {
-            margin-bottom: 22px;
             padding: 20px;
             border: 1px solid var(--border);
             border-radius: var(--radius);
             background: var(--white);
             box-shadow: var(--shadow-sm);
+        }
+
+        .documents-intro {
+            color: var(--muted);
+            font-size: 0.84rem;
         }
 
         .document-links {
@@ -461,6 +465,23 @@
             justify-content: space-between;
             gap: 20px;
             font-size: 0.76rem;
+        }
+
+        :is(html[data-theme="dark"]) .project-documents,
+        :is(html[data-theme="dark"]) .project-meta,
+        :is(html[data-theme="dark"]) .info-card,
+        :is(html[data-theme="dark"]) figure,
+        :is(html[data-theme="dark"]) .note {
+            background: var(--white);
+        }
+
+        :is(html[data-theme="dark"]) .document-links a {
+            background: var(--surface);
+            color: var(--ink);
+        }
+
+        :is(html[data-theme="dark"]) .document-links a span:last-child {
+            color: var(--purple);
         }
 
         :is(html[data-theme="dark"]) .topbar {
@@ -643,6 +664,30 @@
             </div>
         </section>
 
+        <section class="section">
+            <div class="section-heading">
+                <span class="section-label">PROJECT DOCUMENTS</span>
+                <h2>Complete electrical design packages.</h2>
+            </div>
+
+            <div class="project-documents">
+                <p class="documents-intro">
+                    View the complete PDF drawing sets for the single-family and
+                    multi-family residential electrical designs.
+                </p>
+                <div class="document-links">
+                    <a href="../documents/residential-electrical-design/single-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
+                        <span>Single-Family Electrical Design</span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a href="../documents/residential-electrical-design/multi-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
+                        <span>Multi-Family Electrical Design</span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section class="section" id="single-family">
             <div class="design-block">
                 <div class="design-block-header">
@@ -655,20 +700,6 @@
                         layout, power layout, and schedule of loads with a
                         single-line diagram.
                     </p>
-                </div>
-
-                <div class="project-documents">
-                    <span class="section-label">PROJECT DOCUMENTS</span>
-                    <div class="document-links">
-                        <a href="../documents/residential-electrical-design/single-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
-                            <span>Single-Family Electrical Design</span>
-                            <span aria-hidden="true">↗</span>
-                        </a>
-                        <a href="../documents/residential-electrical-design/multi-family-electrical-design.pdf" target="_blank" rel="noopener noreferrer">
-                            <span>Multi-Family Electrical Design</span>
-                            <span aria-hidden="true">↗</span>
-                        </a>
-                    </div>
                 </div>
 
                 <div class="gallery">
@@ -771,8 +802,8 @@
                     <span>Calculated total current for the single-family design</span>
                 </div>
                 <div class="highlight">
-                    <strong>6 Sheets</strong>
-                    <span>Selected drawings presented from the two design packages</span>
+                    <strong>6 Featured Drawings</strong>
+                    <span>Selected drawings presented from the two complete design packages</span>
                 </div>
             </div>
 
@@ -805,6 +836,7 @@
         const themeToggle = document.getElementById("theme-toggle");
         const themeIcon = document.getElementById("theme-icon");
         const THEME_KEY = "blademirPortfolioTheme";
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
         function renderThemeIcon(isDark) {
             themeIcon.innerHTML = isDark
@@ -833,6 +865,10 @@
                 localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
             } catch (error) {
                 // Ignore storage access errors.
+            }
+
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute("content", isDark ? "#0e130f" : "#90b27c");
             }
 
             renderThemeIcon(isDark);
