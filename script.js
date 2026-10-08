@@ -104,3 +104,40 @@ try {
 }
 
 setTheme(savedTheme === "dark");
+
+
+/* Auto-hide the main navigation while scrolling down. */
+const siteNav = document.querySelector(".site-nav");
+
+if (siteNav) {
+    let lastScrollY = window.scrollY;
+    let scrollTicking = false;
+    const scrollThreshold = 8;
+    const revealAt = 80;
+
+    function updateNavigationVisibility() {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= revealAt) {
+            siteNav.classList.remove("header-hidden");
+        } else if (Math.abs(currentScrollY - lastScrollY) >= scrollThreshold) {
+            if (currentScrollY > lastScrollY) {
+                siteNav.classList.add("header-hidden");
+                if (primaryNavigation) setMenu(false);
+            } else {
+                siteNav.classList.remove("header-hidden");
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        scrollTicking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(updateNavigationVisibility);
+            scrollTicking = true;
+        }
+    }, { passive: true });
+}
