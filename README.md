@@ -6,7 +6,7 @@ Personal portfolio website for **Engr. Blademir Pagayunan Rubia**, an Electrical
 
 This portfolio presents my professional background, technical skills, work experience, education, credentials, and selected engineering and software projects.
 
-It highlights the intersection of:
+It brings together:
 
 - Electrical Engineering
 - Computer Science
@@ -16,43 +16,52 @@ It highlights the intersection of:
 - Automation
 - Engineering Technology
 
-## Featured Projects
+## Selected Projects
 
-### Smart Energy Meter
-An undergraduate research project developed with **Mark Jethro B. Magallanes** using an ESP32 microcontroller and PZEM-004T sensor for real-time residential energy monitoring.
+### 1. Smart Energy Meter
+An undergraduate research project developed with **Mark Jethro B. Magallanes** using ESP32, PZEM-004T, a 16x2 I2C LCD, and Blynk for residential energy monitoring.
 
-- **Technologies:** ESP32, PZEM-004T, 16x2 I2C LCD, Blynk, Arduino IDE
-- **Project Page:** projects/smart-energy-meter.html
-- **Publication:** [ResearchGate](https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR)
+- **Project Page:** `projects/smart-energy-meter.html`
+- **Publication:** https://www.researchgate.net/publication/395380070_DESIGN_AND_FABRICATION_OF_A_SMART_ENERGY_METER_USING_ESP32_MICROCONTROLLER_AND_PZEM-004T_SENSOR
+- **Technologies:** ESP32, PZEM-004T, LCD, Blynk, Arduino IDE
 
-### Residential Electrical Systems Design
-An academic residential electrical design project covering single-family and multi-family dwelling applications.
+### 2. Arduino Nano & HC-05 Home Automation
+An EAC 116 Logic Circuits and Switching Theory project developed with **Mark Jethro B. Magallanes**, integrating Arduino Nano, HC-05 Bluetooth, relay switching, and a MIT App Inventor interface.
 
-- **Focus:** Floor plans, lighting layouts, power layouts, schedules of loads, single-line diagrams, wire and conduit specifications, and bills of materials
-- **Technologies/Tools:** AutoCAD, electrical design and drafting
-- **Project Page:** projects/residential-electrical-design.html
+- **Project Page:** `projects/logic-circuits-automation.html`
+- **Technologies:** Arduino Nano, HC-05, MIT App Inventor, relay control, EEPROM
 
-### Electrical Engineering Calculator
-A web-based calculator for selected electrical engineering computations.
+### 3. Weather Information App
+A full-stack recreation and extension of a University of the People CS 1103 Programming 2 project.
 
-- **Technologies:** HTML, CSS, JavaScript
-- **Live Demo:** https://electrical-engineering-calculator-rho.vercel.app/
-- **Repository:** https://github.com/valeriovlad13-del/electrical-engineering-calculator
+- **Live Demo:** https://weather-info-rho-nine.vercel.app/
+- **Repository:** https://github.com/valeriovlad13-del/weather-information-app
+- **Technologies:** Java, Spring Boot, JavaScript, REST APIs, Vite, Open-Meteo
 
-### MASELCO Energy Data Analysis Dashboard
-An interactive dashboard analyzing electricity sales, customers, demand, and supply using DOE-published MASELCO data.
+### 4. MASELCO Energy Data Analysis Dashboard
+An interactive dashboard for exploring electricity sales, customers, demand, and supply using DOE-published MASELCO data.
 
-- **Technologies:** Python, Pandas, Streamlit
 - **Live Dashboard:** https://maselco-energy-dashboard.streamlit.app/
 - **Repository:** https://github.com/valeriovlad13-del/maselco-energy-dashboard
+- **Technologies:** Python, Pandas, Streamlit, data visualization
+
+### 5. Electrical Engineering Calculator
+A browser-based collection of practical electrical engineering calculators.
+
+- **Live Demo:** https://electrical-engineering-calculator-rho.vercel.app/
+- **Repository:** https://github.com/valeriovlad13-del/electrical-engineering-calculator
+- **Technologies:** HTML, CSS, JavaScript
+
+### 6. Residential Electrical Systems Design
+An academic residential electrical design project covering single-family and multi-family dwelling applications.
+
+- **Project Page:** `projects/residential-electrical-design.html`
+- **Technologies:** AutoCAD, electrical design and drafting
+- **Documents:** Complete PDF drawing sets are stored under `documents/residential-electrical-design/`
 
 ## Technologies
 
-Python · C++ · JavaScript · HTML · CSS · Pandas · NumPy · Matplotlib · Streamlit · Git · GitHub · ESP32 · Arduino · AutoCAD · MATLAB · Microsoft Office
-
-## Portfolio
-
-Live website: https://engineerxcscience-portfolio.vercel.app/
+Python · C++ · Java · JavaScript · HTML · CSS · Pandas · NumPy · Matplotlib · Streamlit · Git · GitHub · ESP32 · Arduino · AutoCAD · MATLAB · Microsoft Office
 
 ## Repository Structure
 
@@ -61,6 +70,7 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 ├── images/
 │   ├── logos/
 │   ├── projects/
+│   │   ├── logic-circuits/
 │   │   └── residential-electrical-design/
 │   └── favicon.svg
 ├── documents/
@@ -68,6 +78,7 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 │       ├── single-family-electrical-design.pdf
 │       └── multi-family-electrical-design.pdf
 ├── projects/
+│   ├── logic-circuits-automation.html
 │   ├── residential-electrical-design.html
 │   └── smart-energy-meter.html
 ├── index.html
@@ -78,7 +89,11 @@ Live website: https://engineerxcscience-portfolio.vercel.app/
 
 ## Local Development
 
-This is a static website. Clone the repository and open `index.html` in a browser, or serve the project with any simple local web server.
+This is a static website. Clone the repository and open `index.html` in a browser, or serve the project with a simple local web server.
+
+## Live Portfolio
+
+https://engineerxcscience-portfolio.vercel.app/
 
 ## Author
 
