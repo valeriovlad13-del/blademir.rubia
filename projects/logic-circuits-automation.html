@@ -9,6 +9,41 @@
     <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
     <title>Arduino Nano & HC-05 Home Automation | Engr. Blademir Pagayunan Rubia</title>
 
+
+        // Auto-hide the project header while scrolling down.
+        const pageHeader = document.querySelector(".topbar");
+        if (pageHeader) {
+            let lastScrollY = window.scrollY;
+            let scrollTicking = false;
+            const scrollThreshold = 8;
+            const revealAt = 80;
+
+            function updateHeaderVisibility() {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY <= revealAt) {
+                    pageHeader.classList.remove("header-hidden");
+                } else if (Math.abs(currentScrollY - lastScrollY) >= scrollThreshold) {
+                    if (currentScrollY > lastScrollY) {
+                        pageHeader.classList.add("header-hidden");
+                    } else {
+                        pageHeader.classList.remove("header-hidden");
+                    }
+
+                    lastScrollY = currentScrollY;
+                }
+
+                scrollTicking = false;
+            }
+
+            window.addEventListener("scroll", () => {
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(updateHeaderVisibility);
+                    scrollTicking = true;
+                }
+            }, { passive: true });
+        }
+
     <script>
         try {
             if (localStorage.getItem("blademirPortfolioTheme") === "dark") {
