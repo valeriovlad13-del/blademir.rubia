@@ -26,7 +26,7 @@ An undergraduate research project developed with **Mark Jethro B. Magallanes** u
 - **Technologies:** ESP32, PZEM-004T, LCD, Blynk, Arduino IDE
 
 ### 2. Arduino Nano & HC-05 Home Automation
-An EAC 116 Logic Circuits and Switching Theory project developed with **Mark Jethro B. Magallanes**, integrating Arduino Nano, HC-05 Bluetooth, relay switching, and a MIT App Inventor interface.
+An EAC 114 Logic Circuits and Switching Theory project developed with **Mark Jethro B. Magallanes**, integrating Arduino Nano, HC-05 Bluetooth, relay switching, and a MIT App Inventor interface.
 
 - **Project Page:** `projects/logic-circuits-automation.html`
 - **Technologies:** Arduino Nano, HC-05, MIT App Inventor, relay control, EEPROM
