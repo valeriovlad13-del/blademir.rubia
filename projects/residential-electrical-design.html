@@ -83,6 +83,9 @@
             border-bottom: 1px solid var(--border);
             background: color-mix(in srgb, var(--white) 88%, transparent);
             backdrop-filter: blur(14px);
+        
+            transition: transform 220ms ease;
+            will-change: transform;
         }
 
         .topbar-inner {
@@ -560,7 +563,13 @@
                 scroll-behavior: auto;
             }
         }
-    </style>
+    
+        .topbar.header-hidden { transform: translateY(-100%); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .topbar { transition: none; }
+        }
+</style>
 </head>
 
 <body>
