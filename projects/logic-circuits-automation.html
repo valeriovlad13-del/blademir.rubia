@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arduino Nano and HC-05 home automation project by Blademir P. Rubia and Mark Jethro B. Magallanes for EAC 116 Logic Circuits and Switching Theory.">
+    <meta name="author" content="Blademir P. Rubia and Mark Jethro B. Magallanes">
+    <meta name="theme-color" content="#90b27c">
+    <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+    <title>Arduino Nano & HC-05 Home Automation | Engr. Blademir Pagayunan Rubia</title>
+
+    <script>
+        try {
+            if (localStorage.getItem("blademirPortfolioTheme") === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        } catch (error) {}
+    </script>
+
+    <style>
+        :root {
+            --ink:#1f2522; --muted:#69716b; --white:#fff; --surface:#f5f7f4;
+            --border:rgba(31,37,34,.10); --green:#90b27c; --green-dark:#4f7044;
+            --green-pale:#e8f0e4; --purple:#9d7cb2; --purple-dark:#695078;
+            --purple-pale:#eee7f2; --shadow-sm:0 8px 24px rgba(31,37,34,.07);
+            --shadow-md:0 18px 45px rgba(31,37,34,.10); --radius:20px;
+        }
+        :is(body.dark-mode,html[data-theme="dark"]) {
+            --ink:#edf2ed; --muted:#b6c0b8; --white:#18201b; --surface:#111713;
+            --border:rgba(237,242,237,.12); --green-pale:#1c2a1c; --purple-pale:#28202e;
+        }
+        *{box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{margin:0;color:var(--ink);background:
+            radial-gradient(circle at 5% 8%,rgba(144,178,124,.13),transparent 24rem),
+            radial-gradient(circle at 95% 35%,rgba(157,124,178,.14),transparent 26rem),var(--surface);
+            font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+        a{color:inherit}
+        .topbar{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);
+            background:color-mix(in srgb,var(--white) 88%,transparent);backdrop-filter:blur(14px)}
+        .topbar-inner{width:min(1160px,92%);min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+        .back-link,.theme-toggle{border:1px solid var(--border);border-radius:999px;background:var(--white);box-shadow:var(--shadow-sm);font-size:.78rem;font-weight:800}
+        .back-link{padding:9px 14px;text-decoration:none}.back-link:hover{color:var(--purple-dark)}
+        .theme-toggle{width:40px;height:40px;display:grid;place-items:center;padding:0;color:var(--ink);cursor:pointer}
+        .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+        main{width:min(1160px,92%);margin:auto;padding:80px 0 100px}
+        .hero{display:grid;grid-template-columns:1.12fr .88fr;gap:50px;align-items:end;padding-bottom:55px}
+        .eyebrow,.section-label{color:var(--purple-dark);font-size:.68rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+        .eyebrow{display:inline-flex;align-items:center;gap:8px}.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+        h1,h2,h3,p{margin:0}
+        h1{max-width:850px;margin-top:14px;font-size:clamp(2.7rem,6vw,5.2rem);line-height:.98;letter-spacing:-.055em}
+        .title-accent{background:linear-gradient(100deg,var(--purple-dark),var(--purple),var(--green-dark));-webkit-background-clip:text;background-clip:text;color:transparent}
+        .intro{max-width:750px;margin-top:24px;color:var(--muted);font-size:1rem}
+        .project-meta{padding:24px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow-sm)}
+        .project-meta dl{margin:0;display:grid;gap:15px}.project-meta div{display:grid;grid-template-columns:105px 1fr;gap:14px}
+        .project-meta dt{color:var(--muted);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+        .project-meta dd{margin:0;font-size:.84rem;font-weight:700}
+        .section{margin-top:55px;scroll-margin-top:92px}.section-heading{margin-bottom:24px}
+        .section-heading h2{margin-top:8px;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.1;letter-spacing:-.04em}
+        .overview-grid,.tech-grid,.workflow-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .info-card,.tech-card,.workflow-card,.contribution-card{padding:26px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow-sm)}
+        .info-card h3,.tech-card h3,.workflow-card h3,.contribution-card h3{font-size:1.05rem;margin-bottom:10px}
+        .info-card p,.tech-card p,.workflow-card p,.contribution-card p{color:var(--muted);font-size:.9rem}
+        .hero-image,.figure-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--white);box-shadow:var(--shadow-sm)}
+        .hero-image img,.figure-card img{display:block;width:100%;height:auto}
+        figure{margin:0}.figure-caption{padding:14px 18px;color:var(--muted);font-size:.78rem}
+        .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .gallery .wide{grid-column:1/-1}
+        .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+        .tag{padding:7px 10px;border-radius:999px;background:var(--green-pale);color:var(--green-dark);font-size:.72rem;font-weight:800}
+        .tag.purple{background:var(--purple-pale);color:var(--purple-dark)}
+        .workflow-card strong{display:block;font-size:.82rem;margin-bottom:4px}
+        .workflow-card span{display:block;color:var(--muted);font-size:.84rem}
+        .note{margin-top:18px;padding:18px 20px;border-left:4px solid var(--green);border-radius:0 14px 14px 0;background:var(--green-pale);color:var(--muted);font-size:.84rem}
+        .closing{margin-top:65px;padding:32px;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(135deg,var(--green-pale),var(--purple-pale));}
+        .closing h2{font-size:clamp(1.7rem,3vw,2.5rem);letter-spacing:-.04em}.closing p{max-width:800px;margin-top:12px;color:var(--muted)}
+        footer{margin-top:65px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:.75rem}
+        @media(max-width:800px){.hero{grid-template-columns:1fr;gap:28px}.overview-grid,.tech-grid,.workflow-grid,.gallery{grid-template-columns:1fr}.gallery .wide{grid-column:auto}main{padding-top:55px}}
+        @media(max-width:520px){.topbar-inner{min-height:60px}.back-link{font-size:.72rem}main{width:min(100% - 28px,1160px);padding-bottom:65px}.hero{padding-bottom:35px}.project-meta div{grid-template-columns:90px 1fr;gap:10px}.info-card,.tech-card,.workflow-card,.contribution-card{padding:21px}footer{flex-direction:column}}
+            .code-card{margin-top:18px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#151a17;box-shadow:var(--shadow-md)}
+        .code-header{display:flex;justify-content:space-between;gap:15px;padding:15px 20px;background:rgba(255,255,255,.06);color:#edf2ed;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+        pre{margin:0;padding:24px;overflow:auto;line-height:1.55}pre code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.78rem;color:#edf2ed;white-space:pre}
+        .info-card code,.note code{font-family:"SFMono-Regular",Consolas,monospace;font-size:.85em}
+        @media(max-width:520px){.code-header{flex-direction:column}.code-card pre{padding:17px}.code-card pre code{font-size:.68rem}}
+    </style>
+</head>
+
+<body>
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="back-link" href="../index.html#projects">← Back to Projects</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode"></button>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div>
+            <span class="eyebrow"><span class="eyebrow-dot"></span>Electrical Engineering • Logic Circuits • Automation</span>
+            <h1>Arduino Nano &amp; <span class="title-accent">HC-05 Home Automation</span></h1>
+            <p class="intro">
+                An academic automation project developed for EAC 116 Logic Circuits and Switching Theory,
+                integrating an Arduino Nano, HC-05 Bluetooth communication, a relay module, and a MIT App Inventor
+                interface to control connected electrical loads.
+            </p>
+            <div class="tag-row">
+                <span class="tag">Arduino Nano</span>
+                <span class="tag">HC-05</span>
+                <span class="tag purple">MIT App Inventor</span>
+                <span class="tag purple">Relay Control</span>
+            </div>
+        </div>
+
+        <aside class="project-meta">
+            <dl>
+                <div><dt>Course</dt><dd>EAC 116 – Logic Circuits and Switching Theory</dd></div>
+                <div><dt>Project</dt><dd>Arduino Nano and HC-05 Integration for Lighting, Lamp, Fan, and Outlet Automation with MIT App Inventor Interface</dd></div>
+                <div><dt>Authors</dt><dd>Blademir P. Rubia &amp; Mark Jethro B. Magallanes</dd></div>
+                <div><dt>Platform</dt><dd>Arduino Nano + HC-05 Bluetooth</dd></div>
+                <div><dt>Interface</dt><dd>MIT App Inventor mobile application</dd></div>
+            </dl>
+        </aside>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">PROJECT OVERVIEW</span>
+            <h2>A practical application of switching logic and embedded control.</h2>
+        </div>
+        <div class="overview-grid">
+            <article class="info-card">
+                <h3>Purpose</h3>
+                <p>
+                    The project demonstrates how switching logic can be combined with a microcontroller and
+                    Bluetooth communication to provide mobile control of connected electrical loads.
+                </p>
+            </article>
+            <article class="info-card">
+                <h3>Control Concept</h3>
+                <p>
+                    Commands from the mobile interface are transmitted through the HC-05 Bluetooth module to the
+                    Arduino Nano, which operates the relay outputs connected to the demonstration loads.
+                </p>
+            </article>
+            <article class="info-card">
+                <h3>Mobile Interface</h3>
+                <p>
+                    The MIT App Inventor interface shown in the project presents a connected status and
+                    ON/OFF controls for the system and connected loads, together with a voice-control interface.
+                </p>
+            </article>
+            <article class="info-card">
+                <h3>Electrical Demonstration</h3>
+                <p>
+                    The system diagram shows a 220 V AC supply for the loads and a separate 5 V, 2 A adapter
+                    supplying the low-voltage control electronics.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">SYSTEM ARCHITECTURE</span>
+            <h2>From mobile command to physical switching.</h2>
+        </div>
+        <figure class="figure-card">
+            <img src="../images/projects/logic-circuits/logic-circuits-system-diagram.jpg"
+                 alt="System diagram showing a mobile MIT App Inventor interface, HC-05 Bluetooth module, Arduino Nano, four-channel relay module, 5 V power supply, and connected electrical loads.">
+            <figcaption class="figure-caption">
+                System and wiring diagram showing the Arduino Nano, HC-05 Bluetooth module, four-channel relay module,
+                mobile interface, power supply, and connected demonstration loads.
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">TECHNOLOGY &amp; HARDWARE</span>
+            <h2>The main building blocks.</h2>
+        </div>
+        <div class="tech-grid">
+            <article class="tech-card">
+                <h3>Arduino Nano</h3>
+                <p>Serves as the microcontroller that receives Bluetooth commands and controls the relay outputs.</p>
+            </article>
+            <article class="tech-card">
+                <h3>HC-05 Bluetooth Module</h3>
+                <p>Provides the wireless communication link between the mobile application and the Arduino system.</p>
+            </article>
+            <article class="tech-card">
+                <h3>Four-Channel Relay Module</h3>
+                <p>Provides switched outputs for the connected demonstration loads shown in the system diagram.</p>
+            </article>
+            <article class="tech-card">
+                <h3>MIT App Inventor</h3>
+                <p>Provides the mobile control interface, including connection status, ON/OFF controls, and the displayed voice-control feature.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">MOBILE CONTROL INTERFACE</span>
+            <h2>Designed around simple ON/OFF operation.</h2>
+        </div>
+        <figure class="figure-card">
+            <img src="../images/projects/logic-circuits/logic-circuits-mobile-interface.jpg"
+                 alt="CasaSync 1.0 MIT App Inventor mobile interface showing Bluetooth connection status, ON and OFF controls for power, light, lamp, socket, and fan, plus a voice-control button.">
+            <figcaption class="figure-caption">
+                CasaSync 1.0 mobile control interface showing Bluetooth connection status, individual ON/OFF
+                controls for the connected loads, and the displayed voice-control feature.
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">PROJECT PRESENTATION</span>
+            <h2>The project concept and academic context.</h2>
+        </div>
+        <figure class="figure-card">
+            <img src="../images/projects/logic-circuits/logic-circuits-title-slide.jpg"
+                 alt="Project presentation title slide for the Arduino Nano and HC-05 integration project.">
+            <figcaption class="figure-caption">
+                Original project presentation title slide for the Arduino Nano and HC-05 integration project.
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">PROJECT IMPLEMENTATION</span>
+            <h2>The working prototype.</h2>
+        </div>
+        <figure class="figure-card">
+            <img src="../images/projects/logic-circuits/logic-circuits-project-photo.jpg"
+                 alt="Two student project members presenting the completed electrical automation prototype with lighting loads and control electronics.">
+            <figcaption class="figure-caption">
+                Project presentation and prototype demonstration by the two project members.
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">SYSTEM FLOW</span>
+            <h2>How the control path works.</h2>
+        </div>
+        <div class="workflow-grid">
+            <article class="workflow-card"><strong>01 — User command</strong><span>The user operates the controls in the MIT App Inventor mobile interface.</span></article>
+            <article class="workflow-card"><strong>02 — Bluetooth transmission</strong><span>The command is sent wirelessly through the HC-05 Bluetooth module.</span></article>
+            <article class="workflow-card"><strong>03 — Arduino processing</strong><span>The Arduino Nano receives the command and applies the programmed switching logic.</span></article>
+            <article class="workflow-card"><strong>04 — Relay switching</strong><span>The relay module switches the corresponding connected load according to the received command.</span></article>
+        </div>
+        <div class="note">
+            The project is presented as an academic logic-circuits and switching application. The portfolio page
+            documents the demonstrated architecture and prototype without claiming performance measurements that
+            are not shown in the supplied project materials.
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">CONTROL PROGRAM</span>
+            <h2>Bluetooth commands, relay states, and saved settings.</h2>
+        </div>
+
+        <div class="overview-grid">
+            <article class="info-card">
+                <h3>Command mapping</h3>
+                <p>
+                    The Arduino receives single-character commands from the HC-05 serial connection.
+                    Each load has an uppercase/lowercase command pair, while the E/e pair controls the
+                    system power state.
+                </p>
+                <div class="tag-row">
+                    <span class="tag">A / a → Load 1</span>
+                    <span class="tag">B / b → Load 2</span>
+                    <span class="tag">C / c → Load 3</span>
+                    <span class="tag">D / d → Load 4</span>
+                    <span class="tag purple">E / e → Power</span>
+                </div>
+            </article>
+
+            <article class="info-card">
+                <h3>EEPROM state storage</h3>
+                <p>
+                    The program stores the four load states and the power state in EEPROM addresses 1–5.
+                    When the Arduino starts, those saved values are read back so the control state can be
+                    restored.
+                </p>
+            </article>
+        </div>
+
+        <div class="code-card">
+            <div class="code-header">
+                <span>Arduino Nano control logic</span>
+                <span>HC-05 • EEPROM • 4-Channel Relay</span>
+            </div>
+            <pre><code>#include &lt;EEPROM.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+SoftwareSerial BT_Serial(2, 3); // RX, TX
+
+const byte RELAY_1 = 4;
+const byte RELAY_2 = 5;
+const byte RELAY_3 = 6;
+const byte RELAY_4 = 7;
+
+char btData = '0';
+
+int load1 = 0;
+int load2 = 0;
+int load3 = 0;
+int load4 = 0;
+int powerState = 0;
+
+void setup() {
+    Serial.begin(9600);
+    BT_Serial.begin(9600);
+
+    pinMode(RELAY_1, OUTPUT);
+    pinMode(RELAY_2, OUTPUT);
+    pinMode(RELAY_3, OUTPUT);
+    pinMode(RELAY_4, OUTPUT);
+
+    // Initial relay state.
+    digitalWrite(RELAY_1, HIGH);
+    digitalWrite(RELAY_2, HIGH);
+    digitalWrite(RELAY_3, HIGH);
+    digitalWrite(RELAY_4, HIGH);
+
+    // Restore the last saved states.
+    load1 = EEPROM.read(1);
+    load2 = EEPROM.read(2);
+    load3 = EEPROM.read(3);
+    load4 = EEPROM.read(4);
+    powerState = EEPROM.read(5);
+
+    delay(500);
+}
+
+void loop() {
+    if (BT_Serial.available() &gt; 0) {
+        btData = BT_Serial.read();
+    }
+
+    switch (btData) {
+        case 'A': load1 = 0; EEPROM.update(1, load1); break;
+        case 'a': load1 = 1; EEPROM.update(1, load1); break;
+
+        case 'B': load2 = 0; EEPROM.update(2, load2); break;
+        case 'b': load2 = 1; EEPROM.update(2, load2); break;
+
+        case 'C': load3 = 0; EEPROM.update(3, load3); break;
+        case 'c': load3 = 1; EEPROM.update(3, load3); break;
+
+        case 'D': load4 = 0; EEPROM.update(4, load4); break;
+        case 'd': load4 = 1; EEPROM.update(4, load4); break;
+
+        case 'E': powerState = 0; EEPROM.update(5, powerState); break;
+        case 'e': powerState = 1; EEPROM.update(5, powerState); break;
+    }
+
+    btData = '0';
+
+    // Power-state logic.
+    if (powerState == 1) {
+        digitalWrite(RELAY_1, HIGH);
+        digitalWrite(RELAY_2, HIGH);
+        digitalWrite(RELAY_3, HIGH);
+        digitalWrite(RELAY_4, HIGH);
+    } else {
+        digitalWrite(RELAY_1, load1);
+        digitalWrite(RELAY_2, load2);
+        digitalWrite(RELAY_3, load3);
+        digitalWrite(RELAY_4, load4);
+    }
+
+    // Send the current states back to the MIT App Inventor interface.
+    BT_Serial.print(powerState);
+    BT_Serial.print(';');
+    BT_Serial.print(load1);
+    BT_Serial.print(';');
+    BT_Serial.print(load2);
+    BT_Serial.print(';');
+    BT_Serial.print(load3);
+    BT_Serial.print(';');
+    BT_Serial.print(load4);
+    BT_Serial.println(';');
+
+    delay(500);
+}</code></pre>
+        </div>
+
+        <div class="note">
+            This is a cleaned-up presentation version of the supplied Arduino program. The control mapping and
+            EEPROM state-storage approach are retained, while naming, formatting, the command handler, and EEPROM
+            writes are made easier to read. <code>EEPROM.update()</code> is used instead of writing the same value
+            repeatedly, which avoids unnecessary EEPROM writes when the stored byte has not changed.
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">ACADEMIC CONTRIBUTION</span>
+            <h2>What the project demonstrates.</h2>
+        </div>
+        <div class="overview-grid">
+            <article class="contribution-card">
+                <h3>Logic &amp; Switching</h3>
+                <p>Applies switching concepts to a physical automation system where digital commands determine relay states.</p>
+            </article>
+            <article class="contribution-card">
+                <h3>Embedded Systems</h3>
+                <p>Combines a microcontroller, communication module, relay hardware, and electrical loads into one working prototype.</p>
+            </article>
+            <article class="contribution-card">
+                <h3>Human–Machine Interface</h3>
+                <p>Connects the physical switching system to a mobile interface so the user can operate the system remotely.</p>
+            </article>
+            <article class="contribution-card">
+                <h3>Team Project</h3>
+                <p>This project was developed with Mark Jethro B. Magallanes, with both members credited in the original presentation.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="closing">
+        <h2>A bridge between logic circuits and practical automation.</h2>
+        <p>
+            This project shows how concepts from EAC 116 can be extended beyond circuit theory into a working
+            embedded automation prototype, combining digital control, Bluetooth communication, mobile interaction,
+            and switched electrical loads.
+        </p>
+    </section>
+
+    <footer>
+        <span>© Engr. Blademir Pagayunan Rubia</span>
+        <span>EAC 116 • Logic Circuits and Switching Theory</span>
+    </footer>
+</main>
+
+<script>
+    const toggle = document.getElementById("themeToggle");
+
+    function icon(dark) {
+        return dark
+            ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"></path></svg>'
+            : '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>';
+    }
+
+    function setTheme(dark) {
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        document.body.classList.toggle("dark-mode", dark);
+        toggle.innerHTML = icon(dark);
+        toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+        try { localStorage.setItem("blademirPortfolioTheme", dark ? "dark" : "light"); } catch (error) {}
+    }
+
+    let dark = false;
+    try { dark = localStorage.getItem("blademirPortfolioTheme") === "dark"; } catch (error) {}
+    setTheme(dark);
+    toggle.addEventListener("click", () => setTheme(!document.documentElement.hasAttribute("data-theme") || document.documentElement.getAttribute("data-theme") !== "dark"));
+</script>
+</body>
+</html>
