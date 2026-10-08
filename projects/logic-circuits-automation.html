@@ -166,6 +166,8 @@
         </div>
         <figure class="figure-card">
             <img src="/images/projects/logic-circuits/logic-circuits-system-diagram.jpg"
+                 loading="lazy"
+                 decoding="async"
                  alt="System diagram showing a mobile MIT App Inventor interface, HC-05 Bluetooth module, Arduino Nano, four-channel relay module, 5 V power supply, and connected electrical loads." decoding="async">
             <figcaption class="figure-caption">
                 System and wiring diagram showing the Arduino Nano, HC-05 Bluetooth module, four-channel relay module,
@@ -206,6 +208,8 @@
         </div>
         <figure class="figure-card">
             <img src="/images/projects/logic-circuits/logic-circuits-mobile-interface.jpg"
+                 loading="lazy"
+                 decoding="async"
                  alt="CasaSync 1.0 MIT App Inventor mobile interface showing Bluetooth connection status, ON and OFF controls for power, light, lamp, socket, and fan, plus a voice-control button." decoding="async">
             <figcaption class="figure-caption">
                 CasaSync 1.0 mobile control interface showing Bluetooth connection status, individual ON/OFF
@@ -221,6 +225,8 @@
         </div>
         <figure class="figure-card">
             <img src="/images/projects/logic-circuits/logic-circuits-title-slide.jpg"
+                 loading="lazy"
+                 decoding="async"
                  alt="Project presentation title slide for the Arduino Nano and HC-05 integration project." decoding="async">
             <figcaption class="figure-caption">
                 Original project presentation title slide for the Arduino Nano and HC-05 integration project.
@@ -235,6 +241,8 @@
         </div>
         <figure class="figure-card">
             <img src="/images/projects/logic-circuits/logic-circuits-project-photo.jpg"
+                 loading="lazy"
+                 decoding="async"
                  alt="Two student project members presenting the completed electrical automation prototype with lighting loads and control electronics." decoding="async">
             <figcaption class="figure-caption">
                 Project presentation and prototype demonstration by the two project members.
@@ -338,6 +346,13 @@ void setup() {
     load4 = EEPROM.read(4);
     powerState = EEPROM.read(5);
 
+    // Use valid 0/1 states if EEPROM has not been initialized yet.
+    if (load1 > 1) load1 = 0;
+    if (load2 > 1) load2 = 0;
+    if (load3 > 1) load3 = 0;
+    if (load4 > 1) load4 = 0;
+    if (powerState > 1) powerState = 0;
+
     delay(500);
 }
 
@@ -397,8 +412,9 @@ void loop() {
         <div class="note">
             This is a cleaned-up presentation version of the supplied Arduino program. The control mapping and
             EEPROM state-storage approach are retained, while naming, formatting, the command handler, and EEPROM
-            writes are made easier to read. <code>EEPROM.update()</code> is used instead of writing the same value
-            repeatedly, which avoids unnecessary EEPROM writes when the stored byte has not changed.
+            writes are made easier to read. The startup logic also validates EEPROM values so an uninitialized
+            EEPROM does not produce invalid relay states. <code>EEPROM.update()</code> is used instead of writing
+            the same value repeatedly, which avoids unnecessary EEPROM writes when the stored byte has not changed.
         </div>
     </section>
 
