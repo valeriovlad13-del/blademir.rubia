@@ -77,6 +77,11 @@
         footer{margin-top:65px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:.75rem}
         @media(max-width:800px){.hero{grid-template-columns:1fr;gap:28px}.overview-grid,.tech-grid,.workflow-grid,.gallery{grid-template-columns:1fr}.gallery .wide{grid-column:auto}main{padding-top:55px}}
         @media(max-width:520px){.topbar-inner{min-height:60px}.back-link{font-size:.72rem}main{width:min(100% - 28px,1160px);padding-bottom:65px}.hero{padding-bottom:35px}.project-meta div{grid-template-columns:90px 1fr;gap:10px}.info-card,.tech-card,.workflow-card,.contribution-card{padding:21px}footer{flex-direction:column}}
+            .code-card{margin-top:18px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#151a17;box-shadow:var(--shadow-md)}
+        .code-header{display:flex;justify-content:space-between;gap:15px;padding:15px 20px;background:rgba(255,255,255,.06);color:#edf2ed;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+        pre{margin:0;padding:24px;overflow:auto;line-height:1.55}pre code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.78rem;color:#edf2ed;white-space:pre}
+        .info-card code,.note code{font-family:"SFMono-Regular",Consolas,monospace;font-size:.85em}
+        @media(max-width:520px){.code-header{flex-direction:column}.code-card pre{padding:17px}.code-card pre code{font-size:.68rem}}
     </style>
 </head>
 
@@ -238,6 +243,148 @@
             The project is presented as an academic logic-circuits and switching application. The portfolio page
             documents the demonstrated architecture and prototype without claiming performance measurements that
             are not shown in the supplied project materials.
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <span class="section-label">CONTROL PROGRAM</span>
+            <h2>Bluetooth commands, relay states, and saved settings.</h2>
+        </div>
+
+        <div class="overview-grid">
+            <article class="info-card">
+                <h3>Command mapping</h3>
+                <p>
+                    The Arduino receives single-character commands from the HC-05 serial connection.
+                    Each load has an uppercase/lowercase command pair, while the E/e pair controls the
+                    system power state.
+                </p>
+                <div class="tag-row">
+                    <span class="tag">A / a → Load 1</span>
+                    <span class="tag">B / b → Load 2</span>
+                    <span class="tag">C / c → Load 3</span>
+                    <span class="tag">D / d → Load 4</span>
+                    <span class="tag purple">E / e → Power</span>
+                </div>
+            </article>
+
+            <article class="info-card">
+                <h3>EEPROM state storage</h3>
+                <p>
+                    The program stores the four load states and the power state in EEPROM addresses 1–5.
+                    When the Arduino starts, those saved values are read back so the control state can be
+                    restored.
+                </p>
+            </article>
+        </div>
+
+        <div class="code-card">
+            <div class="code-header">
+                <span>Arduino Nano control logic</span>
+                <span>HC-05 • EEPROM • 4-Channel Relay</span>
+            </div>
+            <pre><code>#include &lt;EEPROM.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+SoftwareSerial BT_Serial(2, 3); // RX, TX
+
+const byte RELAY_1 = 4;
+const byte RELAY_2 = 5;
+const byte RELAY_3 = 6;
+const byte RELAY_4 = 7;
+
+char btData = '0';
+
+int load1 = 0;
+int load2 = 0;
+int load3 = 0;
+int load4 = 0;
+int powerState = 0;
+
+void setup() {
+    Serial.begin(9600);
+    BT_Serial.begin(9600);
+
+    pinMode(RELAY_1, OUTPUT);
+    pinMode(RELAY_2, OUTPUT);
+    pinMode(RELAY_3, OUTPUT);
+    pinMode(RELAY_4, OUTPUT);
+
+    // Initial relay state.
+    digitalWrite(RELAY_1, HIGH);
+    digitalWrite(RELAY_2, HIGH);
+    digitalWrite(RELAY_3, HIGH);
+    digitalWrite(RELAY_4, HIGH);
+
+    // Restore the last saved states.
+    load1 = EEPROM.read(1);
+    load2 = EEPROM.read(2);
+    load3 = EEPROM.read(3);
+    load4 = EEPROM.read(4);
+    powerState = EEPROM.read(5);
+
+    delay(500);
+}
+
+void loop() {
+    if (BT_Serial.available() &gt; 0) {
+        btData = BT_Serial.read();
+    }
+
+    switch (btData) {
+        case 'A': load1 = 0; EEPROM.update(1, load1); break;
+        case 'a': load1 = 1; EEPROM.update(1, load1); break;
+
+        case 'B': load2 = 0; EEPROM.update(2, load2); break;
+        case 'b': load2 = 1; EEPROM.update(2, load2); break;
+
+        case 'C': load3 = 0; EEPROM.update(3, load3); break;
+        case 'c': load3 = 1; EEPROM.update(3, load3); break;
+
+        case 'D': load4 = 0; EEPROM.update(4, load4); break;
+        case 'd': load4 = 1; EEPROM.update(4, load4); break;
+
+        case 'E': powerState = 0; EEPROM.update(5, powerState); break;
+        case 'e': powerState = 1; EEPROM.update(5, powerState); break;
+    }
+
+    btData = '0';
+
+    // Power-state logic.
+    if (powerState == 1) {
+        digitalWrite(RELAY_1, HIGH);
+        digitalWrite(RELAY_2, HIGH);
+        digitalWrite(RELAY_3, HIGH);
+        digitalWrite(RELAY_4, HIGH);
+    } else {
+        digitalWrite(RELAY_1, load1);
+        digitalWrite(RELAY_2, load2);
+        digitalWrite(RELAY_3, load3);
+        digitalWrite(RELAY_4, load4);
+    }
+
+    // Send the current states back to the MIT App Inventor interface.
+    BT_Serial.print(powerState);
+    BT_Serial.print(';');
+    BT_Serial.print(load1);
+    BT_Serial.print(';');
+    BT_Serial.print(load2);
+    BT_Serial.print(';');
+    BT_Serial.print(load3);
+    BT_Serial.print(';');
+    BT_Serial.print(load4);
+    BT_Serial.println(';');
+
+    delay(500);
+}</code></pre>
+        </div>
+
+        <div class="note">
+            This is a cleaned-up presentation version of the supplied Arduino program. The control mapping and
+            EEPROM state-storage approach are retained, while naming, formatting, the command handler, and EEPROM
+            writes are made easier to read. <code>EEPROM.update()</code> is used instead of writing the same value
+            repeatedly, which avoids unnecessary EEPROM writes when the stored byte has not changed.
         </div>
     </section>
 
