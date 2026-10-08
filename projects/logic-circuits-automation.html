@@ -10,41 +10,7 @@
     <title>Arduino Nano & HC-05 Home Automation | Engr. Blademir Pagayunan Rubia</title>
 
 
-        // Auto-hide the project header while scrolling down.
-        const pageHeader = document.querySelector(".topbar");
-        if (pageHeader) {
-            let lastScrollY = window.scrollY;
-            let scrollTicking = false;
-            const scrollThreshold = 8;
-            const revealAt = 80;
-
-            function updateHeaderVisibility() {
-                const currentScrollY = window.scrollY;
-
-                if (currentScrollY <= revealAt) {
-                    pageHeader.classList.remove("header-hidden");
-                } else if (Math.abs(currentScrollY - lastScrollY) >= scrollThreshold) {
-                    if (currentScrollY > lastScrollY) {
-                        pageHeader.classList.add("header-hidden");
-                    } else {
-                        pageHeader.classList.remove("header-hidden");
-                    }
-
-                    lastScrollY = currentScrollY;
-                }
-
-                scrollTicking = false;
-            }
-
-            window.addEventListener("scroll", () => {
-                if (!scrollTicking) {
-                    window.requestAnimationFrame(updateHeaderVisibility);
-                    scrollTicking = true;
-                }
-            }, { passive: true });
-        }
-
-    <script>
+<script>
         try {
             if (localStorage.getItem("blademirPortfolioTheme") === "dark") {
                 document.documentElement.setAttribute("data-theme", "dark");
@@ -72,7 +38,7 @@
             font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
         a{color:inherit}
         .topbar{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border);
-            background:color-mix(in srgb,var(--white) 88%,transparent);backdrop-filter:blur(14px)
+            background:color-mix(in srgb,var(--white) 88%,transparent);backdrop-filter:blur(14px);
             transition: transform 220ms ease;
             will-change: transform;
         }
@@ -523,6 +489,43 @@ void loop() {
     try { dark = localStorage.getItem("blademirPortfolioTheme") === "dark"; } catch (error) {}
     setTheme(dark);
     toggle.addEventListener("click", () => setTheme(!document.documentElement.hasAttribute("data-theme") || document.documentElement.getAttribute("data-theme") !== "dark"));
-</script>
+
+        /* Auto-hide the project header while scrolling down. */
+        const pageHeader = document.querySelector(".topbar");
+
+        if (pageHeader) {
+            let lastScrollY = window.scrollY;
+            let scrollTicking = false;
+            const scrollThreshold = 8;
+            const revealAt = 80;
+
+            function updateHeaderVisibility() {
+                const currentScrollY = window.scrollY;
+                const headerHasFocus = pageHeader.contains(document.activeElement);
+
+                if (headerHasFocus || currentScrollY <= revealAt) {
+                    pageHeader.classList.remove("header-hidden");
+                } else if (Math.abs(currentScrollY - lastScrollY) >= scrollThreshold) {
+                    if (currentScrollY > lastScrollY) {
+                        pageHeader.classList.add("header-hidden");
+                    } else {
+                        pageHeader.classList.remove("header-hidden");
+                    }
+
+                    lastScrollY = currentScrollY;
+                }
+
+                scrollTicking = false;
+            }
+
+            window.addEventListener("scroll", () => {
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(updateHeaderVisibility);
+                    scrollTicking = true;
+                }
+            }, { passive: true });
+        }
+
+    </script>
 </body>
 </html>
