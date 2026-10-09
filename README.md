@@ -93,7 +93,7 @@ This is a static website. Clone the repository and open `index.html` in a browse
 
 ## Live Portfolio
 
-https://engineerxcscience-portfolio.vercel.app/
+https://blademirrubia.vercel.app/
 
 ## Author
 
